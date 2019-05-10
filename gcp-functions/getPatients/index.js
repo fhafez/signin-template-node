@@ -33,7 +33,7 @@ exports.getPatients = (req, res) => {
       }
 
       datastore.runQuery(query).then(results => {
-
+        
         var returnVal = {}
         returnVal.count = results[0].length;
         returnVal.matches = [];
