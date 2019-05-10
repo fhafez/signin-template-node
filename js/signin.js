@@ -127,7 +127,7 @@ var SigninAppView = Backbone.View.extend({
         var int = window.setInterval(
             function() {
                 testacct.fetch({
-                    url: 'php/matchPatients.php/testconn/',
+                    url: 'https://us-central1-scenic-setup-231121.cloudfunctions.net/getPatients/',
                     data: {
                         'firstname':'fadi',
                         'lastname':'hafez',
