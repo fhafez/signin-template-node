@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+    <meta name="apple-mobile-web-app-capable" content="true" />
+    <meta name="viewport" content="user-scalable=1.0,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,width=device-width" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="format-detection" content="telephone=no" />
+    <script src="libs/jquery-min.js"></script>
+    <script src="libs/underscore-min.js"></script>
+    <script src="libs/backbone-min.js"></script>
+    <script src="libs/moment-min.js"></script>
+    <link rel="stylesheet" href="css/style-light.css">
+    <script id='local_main'>
+        
+      function submitSigninForm(action) {
+          if (document.loginform.firstname.value.length == 0 || document.loginform.lastname.value.length == 0) {
+              document.getElementById("errors").innerHTML = 'Firstname and Lastname fields cannot be blank';
+              document.getElementById("errors").style.display = 'block';
+              if (document.loginform.firstname.value.length == 0)
+                    document.getElementById("firstname").style.borderColor = '#cc0000';
+              if (document.loginform.lastname.value.length == 0)
+                    document.getElementById("lastname").style.borderColor = '#cc0000';
+          } else {
+            //document.getElementById('loginform').submit();
+              if (action === "index.php") {
+                    var $sigdiv = $('#signature')            
+                    var data = $sigdiv.jSignature('getData', "svgbase64")
+                    //$('signature_value', $tools).val(data.join(','))
+                    //$.publish(pubsubprefix + data[0], data);
+                    document.forms["loginform"].signature_value.value = data;
+                    document.forms["loginform"].submit();
+                } else if (action === "signout.php") {
+                    document.loginform.action = 'signout.php';
+                    document.forms['loginform'].submit();                  
+                }
+            }
+        }
+        
+        function resetSigninForm() {
+            document.forms["loginform"].reset();
+        }
+        
+        $('#signature').keypress(function(e) {
+            console.log(e.which);
+        });
+
+    </script>
+    <script type='text/template' id='services-template'>
+            <%=provider_name%>: <%= service_name %> (<%if (remaining_appts >= 0) { %><%=remaining_appts%> appointments remaining<% } else { %><%=-remaining_appts%> appointments had<% } %>)
+    </script>
+    <div id='errordiv'></div>
+</head>
+<body>
+    <header><h1 id='site_header'>Physiotherapy and Rehabilitation Centres of Ontario</h1></header>
+    <div id='top_spacer'></div>
+    <div><h3>&nbsp;</h3></div>
+
+    <!--div><p align=center id="errors"></p></div-->
+    
+    <div id='signincontainer'>
+    <form name='loginform' id='loginform'>
+        <div class='signincontainer' id='nameFields'>
+            <input id='firstname' class='inputls' maxlength='20' name="firstname" type="text" placeholder="First Name" value="">
+            <input id='lastname' class='inputls' maxlength='20' name="lastname" type="text" placeholder="Last Name" value="">
+            <label style='display:block'>Sign in and Sign out dates and times</label>
+            <input id='signinDateTime' type="datetime-local" style='width:250px' />
+            <input id='signoutDateTime' type="datetime-local" style='width:250px' />
+        </div>
+        <div class="signincontainer" id="buttonscontainer" align=center>
+            <div id='signinbtn' class='buttonsls' align=center>
+                <label class='button-label' data-url="signin">Create Appt</label>
+            </div>
+            <div id='clearbtn' class='buttonsls' onclick='resetSigninForm();'>
+                <label href="#" value="Reset" class='button-label'>Clear</label>
+            </div>
+        </div>
+        <div id="pleasewait" align="center" class="pleasewaithidden">
+            <label style="font-size: 24px; font-weight: 100;">Signing in/out, please wait...</label>
+        </div>
+    </form>
+    </div>
+    <div id='offlinediv' class='offlinedivhide'><img id='offline' src="images/offline.png" /></div>
+    <div class='copyright'>Copyright &copy; 2015 by Fadi Hafez. All rights reserved.</div>
+
+    <script src="libs/modernizr.js"></script>
+    <script src="src/jSignature.js"></script>
+
+    <script src="src/plugins/jSignature.CompressorBase30.js"></script>
+    <script src="src/plugins/jSignature.CompressorSVG.js"></script>
+    <script src="libs/jSignature.min.js"></script>
+    <script src="libs/errors.js"></script>
+    <script src="js/allModels.js"></script>
+    <script src="js/allCollections.js"></script>
+
+    <script>
+        "use strict";
+
+        var RecoverPatientModel = Backbone.Model.extend({
+           url: 'php/clientsJS.php/recover/',
+        });
+
+        var RecoverApptModel = Backbone.Model.extend({
+            url: 'php/signinJS.php/recover/',
+        })
+
+        var SigninAppView = Backbone.View.extend({
+            el: '.signincontainer',
+            initialize: function() {             
+                var self = this;
+            },
+            events: {
+                'click #signinbtn': 'signin',
+            },
+            signin_model: {},
+            signin_details: [],
+            commitSignin: function() {
+                var self = this;
+                
+                // signin_model.services only contains the services selected by the patient
+                // signin_details is a SigninDetailedCollection
+
+                var this_appointment = this.todays_appointments.add(this.signin_model);
+
+                this_appointment.save({},{
+                    success: function(model, response, options) {
+                       
+                        // initialize the remaining services statement
+                        var services_remaining_statement = "";
+                        var patient_services = self.signin_details.where({
+                            "client_id": self.signin_model.get('client_id'),
+                        });
+                        
+                        self.reportSuccess("Thank you for signing in.  Please see reception now" + services_remaining_statement);
+
+                        self.signin_model.unbind();
+                        self.clearForm();
+
+                    },
+                    error: function(model, response, options) {
+                        errorsdialog.show('issue connecting to database', true);
+                        self.displaySignInContainer();
+
+                        window.generateError("signinappview.commitSignin", "error", response.responseText, "501", moment().format('YYYY-MM-DD HH:mm:ss'));
+
+                    },
+                    wait: false,
+                    timeout: 8000,
+        //            remote: true,
+                });
+
+            },
+            finalChecksAndGetAllServices: function(matchingPatient) {
+
+                var sigval = $('#signature');
+                var data_str = sigval.jSignature('getData','svg')[1];
+                var stopSignIn = false;
+                
+                if (!matchingPatient[0].isValid()) {
+                    errorsdialog.show(matchingPatient[0].validationError, true);
+                }
+
+                // if the client has only registered offline and has not been synced to DB then we cannot proceed
+                allPatients.dirtyModels().forEach(function(dm) {
+                    if (dm.get('id') == matchingPatient[0].get('id')) {
+                        errorsdialog.show('You cannot sign in while system is offline.  Please let the staff at the front desk know.', true);
+                        stopSignIn = true;
+
+                        var logEntry = new LogEntry({
+                            system: 'signinappview.finalChecksAndGetAllServices',
+                            severity: 'error',
+                            message: 'failed signin ' + newPatient.firstname + ' ' + newPatient.lastname,
+                            errorcode: '501',
+                            datetime:  moment().format('YYYY-MM-DD HH:mm:ss')
+                        });
+                        logEntry.save();
+
+                        return;
+                    }
+                });
+
+                if (stopSignIn) {
+                    $("#signature").jSignature("reset");
+                    document.forms["loginform"].reset();
+                    this.clearForm();
+                    this.displaySignInContainer();
+                    return;
+                }
+
+                // record the appointment
+                var data_str = sigval.jSignature('getData','svgbase64');        
+
+                this.signin_model = new SigninModel({
+                    firstname: matchingPatient[0].get('firstname'),
+                    lastname: matchingPatient[0].get('lastname'),
+                    dob: matchingPatient[0].get('dob'),
+                    sig: data_str[1],
+                    services: [],
+                    client_id: matchingPatient[0].get('id'),
+                    signed_in: true
+                });        
+                
+                // get all services for the client signing in
+                var client_services = this.signin_details.where({client_id: matchingPatient[0].id})
+                    
+                // if client has services then list them and allow him/her to select today's services
+                if (client_services.length > 0) {
+                
+                    $('#services-inner-container').html('');
+                    $('#services-inner-container').append('<p class="select-services-p">select all the services for today');
+                    $('#signature').hide();
+                    //$('#buttonscontainer').hide();
+                    this.hideSignInContainer();
+                    $('#pleasewait').addClass('pleasewaithidden');
+
+                    //client_services.each(self.showService, self);
+                    _.each(client_services, this.showService, this);
+                    $('#nameFields').hide();
+                    $('#services-outer-container').show();
+                
+                } else {
+                    
+                    // client has no services, just save the appointment
+                    $('#pleasewait').addClass('pleasewaithidden');
+                    var committing = this.commitSignin.bind(this);
+                    committing();
+                    
+                }
+
+                // mark the patient as signed in
+                matchingPatient[0].set('signed_in', true);
+
+
+            },    
+            checkRemoteDBForPatient: function(data) {
+
+                var newPatient = [];
+                var self = this;
+
+                // lets try to fetch this user directly from the backend DB, if we're online
+                if (!allPatients.dirtyModels().length) {
+                    newPatient = new MatchingPatients();
+                    newPatient.fetch({
+                        data: data,
+                        success: function(collection, response, options) {
+                            if (collection.length == 0) {
+                                errorsdialog.show('user not found', true);
+                                self.displaySignInContainer();
+
+                                var logEntry = new LogEntryModel({
+                                    system: 'signinappview.checkRemoteDBForPatient',
+                                    severity: 'error',
+                                    message: 'user not found ' + JSON.stringify(data),
+                                    errorcode: '404',
+                                    datetime:  moment().format('YYYY-MM-DD HH:mm:ss')
+                                });
+                                logEntry.save();
+                                //self.newPatient.unbind();
+                                self.newPatient = null;
+
+                                return;
+                            } else {
+
+                                // WHAT IF MORE THAN 1 PATIENT IS RETURNED HERE??!?!
+                                // NEEDS A FIX
+
+                                self.finalChecksAndGetAllServices.call(self, collection.models);
+                            }
+                        },
+                        error: function(collection, response, options) {
+                            errorsdialog.show('user not found', true);
+                            self.displaySignInContainer();
+
+                            var logEntry = new LogEntryModel({
+                                system: 'signinappview.checkRemoteDBForPatient',
+                                severity: 'error',
+                                message: 'user not found ' + JSON.stringify(data),
+                                errorcode: '500',
+                                datetime:  moment().format('YYYY-MM-DD HH:mm:ss')
+                            });
+                            logEntry.save();
+                            self.newPatient.unbind();
+                            self.newPatient = undefined;
+
+                            return;
+                        }
+                    });
+                }
+
+            },    
+            signin: function(e) {
+                
+                var firstname = $('#firstname').val().trim();
+                var lastname = $('#lastname').val().trim();
+                var sidt = new Date($('#signinDateTime').val());
+                var sodt = new Date($('#signoutDateTime').val());
+
+                var signinDateTime = sidt.getFullYear() + '-' + (sidt.getMonth()+1) + '-' + sidt.getDate() + ' ' + sidt.getHours() + ':' + sidt.getMinutes() + ':00';
+                var signoutDateTime = sodt.getFullYear() + '-' + (sodt.getMonth()+1) + '-' + sodt.getDate() + ' ' + sodt.getHours() + ':' + sodt.getMinutes() + ':00';
+                
+                var self = this;
+
+                var matches;
+
+                if (firstname.length == 0 || lastname.length == 0) {
+                    errorsdialog.show('Must include firstname and lastname', true);
+                    return;
+                }
+
+                var patientModel = new RecoverPatientModel({});
+
+                patientModel.fetch({
+                    data: {
+                    'firstname': firstname,
+                    'lastname': lastname,                        
+                    },
+                    success: function(model, response, options) {
+
+                        console.log(model);
+
+                        if (!model.has("id")) {
+                            errorsdialog.show("no patient with that name found", true);
+                            return;
+                        }
+                        
+                        var apptModel = new RecoverApptModel({
+                            'client_id': model.get("id"),
+                            'signin_date_time': signinDateTime,
+                            'signout_date_time': signoutDateTime,
+                            'sig_filename': model.get("sig_filename"),
+                        });
+                        apptModel.save({},{
+                            success: function(collection, response, options) {
+                                self.reportSuccess("Appointment added succeessfully!");
+                            },
+                            error: function(collection, response, options) {
+                                errorsdialog.show(response.getResponseHeader('X-Status-Reason'), true);
+                            },
+                        });
+
+                    },
+                    error: function(collection, response, options) {
+                        errorsdialog.show(response.getResponseHeader('X-Status-Reason'), true);
+                    },
+
+                });
+
+            }, 
+            reportSuccess: function(message) {
+                errorsdialog.show(message, false);
+                document.loginform.firstname.value = "";
+                document.loginform.lastname.value = "";
+            },
+            clearForm: function() {
+                document.forms["loginform"].reset();
+            },
+        });
+
+        var signinappview = new SigninAppView();
+
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+       Number.prototype.AddZero= function(b,c){
+        var  l= (String(b|| 10).length - String(this).length)+1;
+        return l> 0? new Array(l).join(c|| '0')+this : this;
+        }//to add zero to less than 10,
+       
+        var d = new Date(),
+        localDateTime= [d.getFullYear(),(d.getMonth()+1).AddZero(),d.getDate().AddZero()].join('-') +'T' +
+                   [d.getHours().AddZero(),
+                    d.getMinutes().AddZero()].join(':'); 
+           
+            var sidt = document.getElementById("signinDateTime");
+            var sodt = document.getElementById("signoutDateTime");
+            sidt.value = localDateTime;
+            sodt.value = localDateTime;
+        });
+    </script>
+
+</body>
+</html>
