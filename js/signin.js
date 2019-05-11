@@ -320,6 +320,7 @@ var SigninAppView = Backbone.View.extend({
         var data_str = sigval.jSignature('getData','svgbase64');        
 
         this.signin_model = new SigninModel({
+            patientID: matchingPatient[0].get('id'),
             firstname: matchingPatient[0].get('firstname'),
             lastname: matchingPatient[0].get('lastname'),
             dob: matchingPatient[0].get('dob'),

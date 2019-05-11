@@ -2,7 +2,7 @@
 
 
 var SigninModel = Backbone.Model.extend({
-    urlRoot: 'php/signinJS.php',
+    urlRoot: 'https://us-central1-scenic-setup-231121.cloudfunctions.net/createAppointment/',
     storeName: 'signin',
     defaults: {
         firstname: '',
@@ -128,7 +128,7 @@ var RegisterModel = Backbone.Model.extend({
 */
 
 var LogEntryModel = Backbone.Model.extend({
-   url: 'php/logJS.php/',
+   url: 'https://us-central1-scenic-setup-231121.cloudfunctions.net/saveLogEntry/',
    defaults: {
        system: '',
        severity: '',
