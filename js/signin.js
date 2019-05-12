@@ -91,6 +91,7 @@ var SigninAppView = Backbone.View.extend({
         });
 
         // load in all the available services for all patients
+        /*
         this.signin_details.fetch({
             reset: true,
             wait: true,
@@ -101,6 +102,7 @@ var SigninAppView = Backbone.View.extend({
                 //console.log("failed to retreive data");
             }
         });
+        */
 
         // retrieve all of today's appointments - in case we go offline, we can just update this collection
         this.todays_appointments = new TodaysAppointmentsCollection({});
