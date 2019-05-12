@@ -20,7 +20,8 @@ var SigninModel = Backbone.Model.extend({
     },
     */
     initialize: function (options) {
-        this.set('current_datetime', moment().format('YYYY-MM-DD HH:mm:ss'));
+        //this.set('current_datetime', moment().format('YYYY-MM-DD HH:mm:ss'));
+        this.set('current_datetime', moment().unix());
     },
     validate: function(attrs, options) {
 
