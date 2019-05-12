@@ -127,7 +127,7 @@ var SigninAppView = Backbone.View.extend({
         var int = window.setInterval(
             function() {
                 testacct.fetch({
-                    url: 'https://us-central1-scenic-setup-231121.cloudfunctions.net/getPatients/',
+                    url: 'https://us-central1-scenic-setup-231121.cloudfunctions.net/getPatient/',
                     data: {
                         'firstname':'fadi',
                         'lastname':'hafez',
@@ -326,7 +326,6 @@ var SigninAppView = Backbone.View.extend({
             dob: matchingPatient[0].get('dob'),
             sig: data_str[1],
             services: [],
-            client_id: matchingPatient[0].get('id'),
             signed_in: true
         });        
         
