@@ -16,6 +16,16 @@ var SigninDetailedCollection = Backbone.Collection.extend({
     
 });
 
+var ServicesCollection = Backbone.Collection.extend({
+    url: function() {
+        return true;
+    },
+    sync: function() {
+        return null;
+    },
+    model: ServicesModel
+})
+
 var TodaysAppointmentsCollection = Backbone.Collection.extend({
     model: SigninModel,
     storeName: 'todaysAppts',

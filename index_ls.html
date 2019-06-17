@@ -99,7 +99,7 @@
     <script lang="text/template" id='signin-template'>
     </script>
     <script type='text/template' id='services-template'>
-            <%=provider_name%>: <%= service_name %> (<%if (remaining_appts >= 0) { %><%=remaining_appts%> appointments remaining<% } else { %><%=-remaining_appts%> appointments had<% } %>)
+            <%=planCoverage%>: <%= name %> (<%if (remainingAppts >= 0) { %><%=remainingAppts%> appointments remaining<% } else { %><%=-remainingAppts%> appointments had<% } %>)
     </script>
     <div id='errordiv'></div>
 </head>

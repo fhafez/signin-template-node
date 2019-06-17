@@ -29,35 +29,36 @@ var SigninServicesView = Backbone.View.extend({
             this.model.selected = true;
            //console.log('adding a service ' + JSON.stringify(this.model.toJSON));
             
-            this.model.attributes['remaining_appts']--;
+            this.model.set('remainingAppts', this.model.get('remainingAppts') - 1);
             this.render();
 
             // add the selected model to the services array
-            signinappview.signin_model.attributes.services.push(this.model);
+            //signinappview.signin_model.attributes.services.push(this.model);
 
             // update the local instance of the service
-            var current_signin_details = signinappview.signin_details.get(this.model.id);
-            current_signin_details.attributes['remaining_appts'] = this.model.attributes['remaining_appts'];
+            var current_signin_details = signinappview.signin_details.get(this.model.get('id'));
+            current_signin_details.attributes['remainingAppts'] = this.model.get('remainingAppts');
 
             this.$el.addClass('checkboxdivselected');
             this.$el.removeClass('checkboxdivunselected');
         } else {
             this.model.selected = false;
-            var obj_index = signinappview.signin_model.attributes.services.indexOf(this.model);
+            //var obj_index = signinappview.signin_model.attributes.services.indexOf(this.model);
             
-            this.model.attributes['remaining_appts']++;
+            this.model.set('remainingAppts', this.model.get('remainingAppts') + 1);
             this.render();
 
+/*
             // remove the service from the services array
             if (obj_index != -1) {
                 signinappview.signin_model.attributes.services.splice(obj_index, 1);
             }
-
+*/
             // update the local instance of the service
-            var current_signin_details = signinappview.signin_details.get(this.model.id);
-            current_signin_details.attributes['remaining_appts'] = this.model.attributes['remaining_appts'];
+            var current_signin_details = signinappview.signin_details.get(this.model.get('id'));
+            current_signin_details.attributes['remainingAppts'] = this.model.get('remainingAppts');
             
-            this.$el.addClass('checkboxdivunselected');            
+            this.$el.addClass('checkboxdivunselected');
             this.$el.removeClass('checkboxdivselected');
         }
     }
@@ -181,6 +182,7 @@ var SigninAppView = Backbone.View.extend({
 
     },
     showService: function(signin_detail_model) {
+        //var services_model = new Backbone.Model(signin_detail_model);
         var signin_service_view = new SigninServicesView({model: signin_detail_model, parent: this});
         $('#services-inner-container').append(signin_service_view.render().el);
         this.displayed_services.push(signin_service_view);
@@ -201,7 +203,7 @@ var SigninAppView = Backbone.View.extend({
 
         // loop through the services of the signin model and increment the remaining_appts counter for each
         this.signin_model.attributes.services.forEach(function(service) {
-            self.signin_details.where({'id': service.attributes.id })[0].fetch();
+            self.signin_details.where({'id': service.id })[0].fetch();
         });
 
         this.displaySignInContainer();
@@ -217,6 +219,8 @@ var SigninAppView = Backbone.View.extend({
         // signin_model.services only contains the services selected by the patient
         // signin_details is a SigninDetailedCollection
 
+        //this.signin_model.set('services', this.signin_services);
+        this.signin_model.set('services', this.signin_details.models);
         var this_appointment = this.todays_appointments.add(this.signin_model);
 
         this_appointment.save({},{
@@ -224,25 +228,30 @@ var SigninAppView = Backbone.View.extend({
                
                 // initialize the remaining services statement
                 var services_remaining_statement = "";
-                var patient_services = self.signin_details.where({
+                var patient_services = self.signin_details.toArray();
+/*
+                .where({
                     "client_id": self.signin_model.get('client_id'),
                 });
-
+*/
                 if (patient_services.length > 0) {
                     services_remaining_statement = "<br>Services Summary<br>";
                     _.each(patient_services, function(service) {
 
-                        if (service.get('remaining_appts') >= 0) {
-                            services_remaining_statement += "<br>" + service.get('provider_name') + ': ' + service.get('service_name') + ' ' + service.get('remaining_appts') + ' remaining';
+                        if (service.get('remainingAppts') >= 0) {
+                            services_remaining_statement += "<br>" + service.get('planCoverage') + ': ' + service.get('name') + ' ' + service.get('remainingAppts') + ' remaining';
                         } else {
-                            services_remaining_statement += "<br>" + service.get('provider_name') + ': ' + service.get('service_name') + ' ' + -service.get('remaining_appts') + ' over';
+                            services_remaining_statement += "<br>" + service.get('planCoverage') + ': ' + service.get('name') + ' ' + -service.get('remainingAppts') + ' over';
                         }
                     }, self);
 
+// FADI: TODO!!
+/*
                     patient_services.forEach(function(ps) {
                         ps.selected=false;
                         ps.save({},{remote: false});
                     });
+                    */
                 }
                 
                 self.reportSuccess("Thank you for signing in.  Please see reception now" + services_remaining_statement);
@@ -321,21 +330,27 @@ var SigninAppView = Backbone.View.extend({
         // record the appointment
         var data_str = sigval.jSignature('getData','svgbase64');        
 
-        this.signin_model = new SigninModel({
+        this.signin_model = new SigninModel();
+        this.signin_model.set({
             patientID: matchingPatient[0].get('id'),
             firstname: matchingPatient[0].get('firstname'),
             lastname: matchingPatient[0].get('lastname'),
             dob: matchingPatient[0].get('dob'),
             sig: data_str[1],
-            services: [],
+            services: matchingPatient[0].get('services'),
             signed_in: true
-        });        
+        });
         
         // get all services for the client signing in
-        var client_services = this.signin_details.where({client_id: matchingPatient[0].id})
+        this.signin_details = new ServicesCollection();
+        _.each(this.signin_model.get('services'), function(m) {
+            this.signin_details.add(new ServicesModel(m));
+        }, this);
+//        this.signin_details.add(this.signin_model.get('services'));
+//        var client_services =  this.signin_details.models;
             
         // if client has services then list them and allow him/her to select today's services
-        if (client_services.length > 0) {
+        if (this.signin_details.length > 0) {
         
             $('#services-inner-container').html('');
             $('#services-inner-container').append('<p class="select-services-p">select all the services for today');
@@ -345,7 +360,7 @@ var SigninAppView = Backbone.View.extend({
             $('#pleasewait').addClass('pleasewaithidden');
 
             //client_services.each(self.showService, self);
-            _.each(client_services, this.showService, this);
+            _.each(this.signin_details.models, this.showService, this);
             $('#nameFields').hide();
             $('#services-outer-container').show();
         

@@ -40,8 +40,18 @@ var SigninModel = Backbone.Model.extend({
     
 });
 
+var ServicesModel = Backbone.Model.extend({
+    defaults: {
+        name: "",
+        planCoverage: "",
+        planID: "",
+        remainingAppts: 0,
+        selected: false,
+    }
+});
+
 var PatientModel = Backbone.Model.extend({
-    urlRoot: 'php/matchPatients.php',
+    urlRoot: 'https://us-central1-scenic-setup-231121.cloudfunctions.net/getPatients/',
     storeName: 'allPatients',    
     defaults: {
         //id: '',
@@ -77,7 +87,7 @@ var PatientModel = Backbone.Model.extend({
 
 
 var SigninDetailedModel = Backbone.Model.extend({
-    urlRoot: 'php/signinJS.php/details/',
+    //urlRoot: 'php/signinJS.php/details/',
     storeName: 'signinDetails',
     defaults: {
         selected: false
