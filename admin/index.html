@@ -30,9 +30,9 @@
         <td><div><label><%= firstname %></label></div></td>
         <td><div><label><%= lastname %></label></div></td>
         <!--td><div><label><%= dob %></label></div></td-->
-        <td><div align='center'><label><%= moment.unix(signedInAt).format("DD MMM YYYY   hh:mm") %></label></div></td>
+        <td><div align='center'><label><%= moment.unix(signedInAt).format("DD-MMM-YYYY hh:mmA") %></label></div></td>
         <td align='center' class='signout'><div class="view"><label><%= end_datetime %></label></div><label class="signout">Signout now? <a class="yes">Yes</a> <a class="no" href="#">No</a></label></td>
-        <td align='center'><img style="max-width:150px; max-height:60px; stroke: red" src="https://scarsigs.parcsignin.com/<%= signatureFilename %>" /></td>
+        <td align='center'><img style="max-width:150px; max-height:60px; stroke: red" src="https://storage.googleapis.com/scarsigs.parcsignin.com/<%= signatureFilename %>" /></td>
         <!--td align='center'>
             <svg xml:space="preserve" viewbox="0 0 500 200" width="90%" preserveAspectRatio="xMidYMid meet">
             </svg>
