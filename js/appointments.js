@@ -7,7 +7,8 @@ function AppointmentsApp(el) {
     });
 
     var AppointmentModel = Backbone.Model.extend({
-        urlRoot: "../php/appointmentsJS.php/",
+        //urlRoot: "../php/appointmentsJS.php/",
+        urlRoot: "https://us-central1-scenic-setup-231121.cloudfunctions.net/listAppointments",
         defaults: {
             client: {},
             staff: {},
@@ -158,7 +159,7 @@ function AppointmentsApp(el) {
     var AppointmentsCollection = Backbone.Collection.extend({
         model: AppointmentModel,
         wait: true,
-        url: "../php/appointmentsJS.php/",
+        url: "https://us-central1-scenic-setup-231121.cloudfunctions.net/listAppointments",
         /*
         sync: function(method, model, options) {
             //console.log("appointments collection sync called! " + method);
