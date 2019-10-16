@@ -2,7 +2,6 @@
 const {Datastore} = require('@google-cloud/datastore');
 const datastore = new Datastore({
 	projectId: 'scenic-setup-231121'
-	//keyFilename: 'scenic-setup-231121-337cda78fcb2.json'
 });
 
 const kindName = 'Patient';

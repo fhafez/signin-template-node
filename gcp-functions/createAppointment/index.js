@@ -3,7 +3,6 @@ const atob = require('atob');
 const {Datastore} = require('@google-cloud/datastore');
 const datastore = new Datastore({
 	projectId: 'scenic-setup-231121'
-	//keyFilename: 'scenic-setup-231121-337cda78fcb2.json'
 });
 
 const {Storage} = require('@google-cloud/storage');
@@ -18,13 +17,13 @@ exports.setAppointment = (req, res) => {
     const unixTimestamp = new Date().getTime() * 1000;
     let appointmentID = req.body.apptID || 0;
     let patientID = req.body.patientID || '';
-	let firstname = req.body.firstname || '';
-	let lastname = req.body.lastname || '';
+    let firstname = req.body.firstname || '';
+    let lastname = req.body.lastname || '';
     let dob = req.body.dob || '';
     let current_datetime = req.body.current_datetime;    
     let signedInAt = req.body.signedInAt || current_datetime;
     let signedOutAt = req.body.signedOutAt || 0;
-	let signature = req.body.sig || '';
+    let signature = req.body.sig || '';
     let signatureFilename = firstname + '_' + lastname + '_' + unixTimestamp + '.svg';
     let services = req.body.services || [];
 
