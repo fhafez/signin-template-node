@@ -72,10 +72,13 @@ var ClientsCollection = Backbone.Collection.extend({
         //console.log('CC created!');
     },
     parse: function(response) {
+        /*
         this.page = response.page;
         this.per_page = response.per_page;
         this.total_pages = response.total_pages;
         return response.clientlist;
+        */
+        return response;
     },
     searchByName: function(firstname, lastname) {
         return this.where({firstname: firstname});
