@@ -10,7 +10,7 @@ const storage = new Storage();
 
 const kindName = 'Provider';
 
-exports.getProviders = (req, res) => {
+exports.setProvider = (req, res) => {
     return cors(req, res, () => {
 
         // create a new entry
@@ -73,7 +73,7 @@ exports.getProviders = (req, res) => {
             .catch(err => { console.error('ERROR:', err); });
           }
         }
-        
+
     });
 };
 

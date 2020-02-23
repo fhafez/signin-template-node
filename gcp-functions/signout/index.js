@@ -54,7 +54,7 @@ exports.signout = (req, res) => {
         
         // update the signedOutAt to current unix time
         
-		console.log(entities.length);
+		    console.log(entities.length);
         if (entities.length > 0) {
 	        console.log(entities[0]);
     	    entities[0].signedOutAt = datastore.int(unixTimeNow);

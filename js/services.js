@@ -1,7 +1,7 @@
 "use strict";
 
 var ServiceModel = Backbone.Model.extend({
-    urlRoot: "../php/servicesJS.php/",
+    urlRoot: "https://us-central1-scenic-setup-231121.cloudfunctions.net/getServices",
     defaults: {
         description: '',
     },
@@ -13,7 +13,7 @@ var ServiceModel = Backbone.Model.extend({
 });
 
 var ServiceRemainingModel = Backbone.Model.extend({
-    urlRoot: "../php/servicesJS.php/remaining/",
+    urlRoot: "https://us-central1-scenic-setup-231121.cloudfunctions.net/getServices/remaining/",
     
     validate: function(attrs, options) {
         if (!attrs.id || !attrs.description) {
@@ -23,7 +23,7 @@ var ServiceRemainingModel = Backbone.Model.extend({
 });
 
 var ServicesRemainingCollection = Backbone.Collection.extend({
-    urlRoot: "../php/servicesJS.php/remaining/",
+    urlRoot: "https://us-central1-scenic-setup-231121.cloudfunctions.net/getServices/remaining/",
     
     validate: function() {
         
@@ -121,7 +121,7 @@ var ServicesRemainingView = Backbone.View.extend({
 var ServicesCollection = Backbone.Collection.extend({
     model: ServiceModel,
     wait: true,
-    url: "../php/servicesJS.php/",
+    url: "https://us-central1-scenic-setup-231121.cloudfunctions.net/getServices",
     initialize: function(models, options) {
     },
     syncComplete: function() {

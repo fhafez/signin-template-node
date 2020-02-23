@@ -65,7 +65,7 @@ var AvailableServiceModel = Backbone.Model.extend({
 
 var ClientsCollection = Backbone.Collection.extend({
     model: ClientModel,
-    url: '../php/clientsJS.php/',
+    url: 'https://us-central1-scenic-setup-231121.cloudfunctions.net/getPatients',
     initialize: function(options) {
         if (options && options.url)
             this.url = options.url;

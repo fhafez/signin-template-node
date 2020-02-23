@@ -1,7 +1,7 @@
 "use strict";
 
 var ProviderModel = Backbone.Model.extend({
-    urlRoot: "../php/providersJS.php/",
+    urlRoot: "https://us-central1-scenic-setup-231121.cloudfunctions.net/getProviders",
     defaults: {
         description: '',
     },
@@ -15,7 +15,7 @@ var ProviderModel = Backbone.Model.extend({
 var ProvidersCollection = Backbone.Collection.extend({
     model: ProviderModel,
     wait: true,
-    url: "../php/providersJS.php/",
+    url: "https://us-central1-scenic-setup-231121.cloudfunctions.net/getProviders",
     initialize: function(models, options) {
     },
     syncComplete: function() {

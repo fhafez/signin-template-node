@@ -18,17 +18,19 @@ function AppointmentsApp(el) {
             mva: false
         },
         validate: function(attrs, options) {
+            /*
             if (!moment(attrs.start_datetime, ['DD-MMMM-YYYY hh:mmA', 'YYYY-MM-DD HH:mm:ss']).isValid()) {
                 //console.log('not a valid date ' + attrs.start_datetime);
                 return "Sign in date is not a date";
             }
+            */
             /*
             if (!moment(attrs.end_datetime, ['DD-MMMM-YYYY hh:mmA', 'YYYY-MM-DD HH:mm:ss']).isValid()) {
                 //console.log('not a valid date ' + attrs.end_datetime);
                 return "Sign out date is not a date";
             }
             */
-            if (!attrs.signature_filename) {
+            if (!attrs.signatureFilename) {
                 return "Signature not provided";
             }
         },
@@ -119,11 +121,11 @@ function AppointmentsApp(el) {
                 this.model.set('end_datetime', new moment().format("DD-MMMM-YYYY hh:mmA"));
                //console.log(this.model);
                 this.model.save({
-                    end_datetime: function(m) {
-                        return moment(m.get('end_datetime'), "DD-MMMM-YYYY hh:mmA").format('YYYY-MM-DD HH:mm:ss');
+                    signedOutAt: function(m) {
+                        return moment(m.get('end_datetime'), "DD-MMMM-YYYY hh:mmA").unix();
                     }(this.model),
-                    start_datetime: function(m) {
-                        return moment(m.get('start_datetime'), "DD-MMMM-YYYY hh:mmA").format('YYYY-MM-DD HH:mm:ss');
+                    signedInAt: function(m) {
+                        return moment(m.get('start_datetime'), "DD-MMMM-YYYY hh:mmA").unix();
                     }(this.model)
                 });
                //console.log('saved');
@@ -152,8 +154,9 @@ function AppointmentsApp(el) {
         }
     });
 
+
     var StaffCollection = Backbone.Collection.extend({
-        url: "../php/staffJS.php/"
+        url: "https://us-central1-scenic-setup-231121.cloudfunctions.net/getStaff",
     });
 
     var AppointmentsCollection = Backbone.Collection.extend({
@@ -195,13 +198,20 @@ function AppointmentsApp(el) {
             this.date_to = options.date_to;
             
             // if no date was passed in then create the range of the last day
-            if (!this.date_from || !this.date_to || isNaN((new Date(this.date_from)).getDate()) || isNaN((new Date(this.date_from)).getDate())) {
-        
+            //if (!this.date_from || !this.date_to || isNaN((new Date(this.date_from)).getDate()) || isNaN((new Date(this.date_from)).getDate())) {
+            if (!this.date_from || !this.date_to || !this.date_from.isValid() || !this.date_from.isValid()) {                
+
+                /*        
                 this.date_from = (new moment()).subtract(2, 'd').format("YYYY-MM-DD");
                 this.date_to = (new moment()).add(1,'d').format("YYYY-MM-DD");
+                */
+                this.date_from = new moment().subtract(2, 'd');
+                this.date_to = new moment().add(1,'d');
                 
                //console.log("fetching from " + this.date_from + " to " + this.date_to);
             }
+
+
             
             // set the date range variables accordingly
             this.setRange({date_from: this.date_from, date_to: this.date_to});
@@ -224,16 +234,18 @@ function AppointmentsApp(el) {
         setRange: function(range) {
             
            //console.log('appointmentsColletion: setting range ' + JSON.stringify(range));
+           /*
             var mom_date_from = moment(range.date_from, "YYYY-MM-DD");
             var mom_date_to = moment(range.date_to, "YYYY-MM-DD");
-            
-            if (mom_date_from.isValid() && mom_date_to.isValid()) {
-                this.date_from = mom_date_from.format("YYYY-MM-DD");
-                this.date_to = mom_date_to.format("YYYY-MM-DD");
+            */
+
+            if (range.date_from.isValid() && range.date_to.isValid()) {
+                this.date_from = range.date_from;
+                this.date_to = range.date_to;
                 
                 // update the date range fields in the DOM
-                $('#date_from').val(this.date_from);
-                $('#date_to').val(this.date_to);
+                $('#date_from').val(this.date_from.format("YYYY-MM-DD"));
+                $('#date_to').val(this.date_to.format("YYYY-MM-DD"));
             }
             
         },
@@ -282,12 +294,11 @@ function AppointmentsApp(el) {
 
             this.displayedAppts = this.displayedAppts || [];
 
-            
-            this.appointmentsCollection = new AppointmentsCollection([], {date_from: $('#date_from'), date_to: $('#date_to')});
-
-            this.staffCollection = new StaffCollection();
+            this.appointmentsCollection = new AppointmentsCollection([], {date_from: $('#date_from').val(), date_to: $('#date_to').val()});            
 
             var self = this;
+
+            this.staffCollection = new StaffCollection();
 
             this.staffCollection.fetch({
                 success: function() {
@@ -309,6 +320,7 @@ function AppointmentsApp(el) {
             _.bindAll(this, "renderAppointments");
 
             this.dayClicked();
+            this.reloadAppointments();
 
             this.render();
             
@@ -338,7 +350,9 @@ function AppointmentsApp(el) {
             'click #firstname': 'sortAppointments',
             'click #lastname': 'sortAppointments',
             'click #signedin_at': 'sortAppointments',
-            'click #signedout_at': 'sortAppointments'
+            'click #signedout_at': 'sortAppointments',
+            'change #date_from': 'reloadAppointments',
+            'change #date_to': 'reloadAppointments'
         },
         addAppointment: function(appointmentModel) {
            //console.log('in addAppointment() .. appointmentModel says ' + JSON.stringify(appointmentModel.toJSON()));
@@ -394,12 +408,12 @@ function AppointmentsApp(el) {
                 var date_from = moment(date_from_filter, "YYYY-MM-DD").subtract(1,'d');
                 var date_to = moment(date_to_filter, "YYYY-MM-DD");
                 
-                if ((staff_id_filter || firstname_filter || lastname_filter || date_from_filter || date_to_filter) && date_to.isValid() && date_from.isValid()) {
+                if ((staff_id_filter || firstname_filter || lastname_filter || date_from_filter || date_to_filter) && date_to && date_from) {
 
                     this.appointmentsCollection = null;
                     this.appointmentsCollection = new AppointmentsCollection([], {
-                        date_from: date_from_filter,
-                        date_to: date_to_filter,
+                        date_from: date_from,
+                        date_to: date_to,
                         firstname: firstname_filter,
                         lastname: lastname_filter,
                         dob: dob_filter,
@@ -409,8 +423,8 @@ function AppointmentsApp(el) {
                     this.appointmentsCollection.fetch({
                         reset: true,
                         data: {
-                            from: date_from_filter,
-                            to: date_to_filter,
+                            fromDate: date_from.unix(),
+                            toDate: date_to.unix(),
                             page: this.appointmentsCollection.page,
                             page_size: this.appointmentsCollection.page_size,
                             firstname: firstname_filter,
@@ -483,12 +497,14 @@ function AppointmentsApp(el) {
 
 
             //appointmentsCollection = new AppointmentsCollection([], {date_from: $('#date_from').val(), date_to: $('#date_to').val()});
-            this.appointmentsCollection.setRange({date_from: $('#date_from').val(), date_to: $('#date_to').val()});
+            let date_from = moment($('#date_from').val());
+            let date_to = moment($('#date_to').val());
+            this.appointmentsCollection.setRange({date_from: date_from, date_to: date_to});
             this.appointmentsCollection.fetch({
                 reset: true,
                 data: { 
-                    from: this.appointmentsCollection.date_from,
-                    to: this.appointmentsCollection.date_to,
+                    fromDate: this.appointmentsCollection.date_from.unix(),
+                    toDate: this.appointmentsCollection.date_to.unix(),
                     page: this.appointmentsCollection.page,
                     page_size: this.appointmentsCollection.page_size,
                     firstname: $('#firstname_filter').val(),
@@ -514,22 +530,22 @@ function AppointmentsApp(el) {
         dayClicked: function() {
             $('#date_from').val(moment().format("YYYY-MM-DD"));
             $('#date_to').val(moment().add(1,'d').format("YYYY-MM-DD"));
-            this.reloadAppointments();
+            //this.reloadAppointments();
+            $('#date_from').trigger('change');
         },
         monthClicked: function(e) {
-
-           //console.log(this);
             this.$('#appointments-table').html('<tr><td bgcolor="white" border="0" align="center">loading appointments, please wait.</tr></td>'); // clean the appointments table
 
             $('#date_from').val(moment().subtract(1,'M').format("YYYY-MM-DD"));
             $('#date_to').val(moment().add(1,'d').format("YYYY-MM-DD"));
-            this.reloadAppointments();
-
+            //this.reloadAppointments();
+            $('#date_from').trigger('change');
         },
         weekClicked: function() {
             $('#date_from').val(moment().subtract(1,'w').format("YYYY-MM-DD"));
             $('#date_to').val(moment().add(1,'d').format("YYYY-MM-DD"));
-            this.reloadAppointments();
+            $('#date_from').trigger('change');
+            //this.reloadAppointments();
         },
         apptLastPage: function() {
             this.appointmentsCollection.lastPage();
