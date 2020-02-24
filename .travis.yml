@@ -1,0 +1,7 @@
+language: node_js
+node_js:
+- stable
+- '6'
+- '4'
+before_install:
+- openssl aes-256-cbc -K $encrypted_eb328a879d60_key -iv $encrypted_eb328a879d60_iv -in scenic-setup-231121-04700bd179e4.json.enc -out scenic-setup-231121-04700bd179e4.json -d
