@@ -23,9 +23,6 @@ install:
 script:
   - npm test
 
-before_install:
-  - openssl aes-256-cbc -K $encrypted_eb328a879d60_key -iv $encrypted_eb328a879d60_iv -in scenic-setup-231121-04700bd179e4.json.enc -out scenic-setup-231121-04700bd179e4.json -d
-
 before_deploy:
   - if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf $HOME/google-cloud-sdk; export CLOUDSDK_CORE_DISABLE_PROMPTS=1; curl https://sdk.cloud.google.com | bash; fi
   - source /home/travis/google-cloud-sdk/path.bash.inc
@@ -34,7 +31,7 @@ before_deploy:
 
   # use the decrypted service account credentials to authenticate the command line tool
   # get the encrypted variable names from travis cli: https://docs.travis-ci.com/user/encrypting-files/
-  - openssl aes-256-cbc -K $TRAVIS_ENCRYPTED_key -iv $TRAVIS_ENCRYPTED_iv -in gcloud-service-key.json.enc -out gcloud-service-key.json -d
+  - openssl aes-256-cbc -K $encrypted_eb328a879d60_key -iv $encrypted_eb328a879d60_iv -in scenic-setup-231121-04700bd179e4.json.enc -out scenic-setup-231121-04700bd179e4.json -d
   - gcloud auth activate-service-account --key-file gcloud-service-key.json
 
   - gcloud config set project scenic-setup-231121
