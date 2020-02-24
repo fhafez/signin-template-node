@@ -1,0 +1,9 @@
+{
+  "name": "signin-template-node",
+  "version": "0.0.1",
+  "dependencies": {
+    "@google-cloud/datastore": "^3.1.2",
+    "@google-cloud/storage": "^2.5.0",
+    "cors": "^2.8.1"
+  }
+}
