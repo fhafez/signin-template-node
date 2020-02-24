@@ -7,6 +7,7 @@ const datastore = new Datastore({
 
 const kindName = 'Patient';
 
+//testing travis
 exports.signout = (req, res) => {
     const unixTimestamp = new Date().getTime() / 1000;
     let signoutTime = req.body.signoutTime || 0;
