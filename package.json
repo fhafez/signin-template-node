@@ -5,5 +5,21 @@
     "@google-cloud/datastore": "^3.1.2",
     "@google-cloud/storage": "^2.5.0",
     "cors": "^2.8.1"
-  }
+  },
+  "description": "Keep track of patients visiting a clinic.  Includes both a frontend and backend system.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fhafez/signin-template-node.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fhafez/signin-template-node/issues"
+  },
+  "homepage": "https://github.com/fhafez/signin-template-node#readme"
 }
