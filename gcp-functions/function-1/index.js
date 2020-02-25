@@ -13,7 +13,7 @@ exports.setAppointment = (req, res) => {
     const unixTimestamp = new Date().getTime() * 1000;
     let appointmentID = req.body.apptID || 0;
     let patientID = req.body.patientID || '';
-	let firstname = req.body.firstname || '';
+	  let firstname = req.body.firstname || '';
 	let lastname = req.body.lastname || '';
     let dob = req.body.dob || '';
     let signedInAt = req.body.signedInAt || '0';
