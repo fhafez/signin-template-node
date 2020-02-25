@@ -40,9 +40,9 @@ deploy:
   - provider: script
     script:
       # change PROJECT and REPO to the values from the cloud console: https://console.cloud.google.com/code/develop
-      - gcloud --quiet beta functions deploy function-1 --source https://source.cloud.google.com/scenic-setup-231121/github_fhafez_signin-template-node/+/master:gcp-functions/function-1/ --trigger-http
-      
-      
+      - gcloud --quiet beta functions deploy function-1 --source https://source.developers.google.com/projects/scenic-setup-231121/repos/github_fhafez_signin-template-node/moveable-aliases/master/paths/gcp-functions/function-1 --trigger-http
+
+
       # - gcloud --quiet beta functions deploy mailer --source-url https://github.com/fhafez/signin-template-node/tree/master/gcp-functions --source-path / --trigger-http
     skip_cleanup: true
     on:
