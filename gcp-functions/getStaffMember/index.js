@@ -11,7 +11,7 @@ const BUCKET_NAME = "parcontario-scar-signatures";
 
 const kindName = 'Staff';
 
-// testing travis ci/cd - take 2
+// testing travis ci/cd - take 3
 exports.getStaffMember = (req, res) => {
     return cors(req, res, () => {
 
