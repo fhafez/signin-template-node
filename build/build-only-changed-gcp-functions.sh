@@ -1,6 +1,7 @@
 #!/bin/bash
 
-ALL_DIRS=`ls -1 ../gcp-functions`
+#ALL_DIRS=`ls -1 ../gcp-functions`
+ALL_DIRS=`ls -1`
 #CHANGED_FILES=`git diff HEAD^ HEAD --name-only`
 CHANGED_FILES=`git diff master origin/master --name-only`
 
