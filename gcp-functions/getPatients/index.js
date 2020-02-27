@@ -9,7 +9,7 @@ const {Storage} = require('@google-cloud/storage');
 const storage = new Storage();
 const BUCKET_NAME = "parcontario-scar-signatures";
 
-// just testing ci/cd
+// just testing ci/cd - take 2
 //
 const kindName = 'Patient';
 
