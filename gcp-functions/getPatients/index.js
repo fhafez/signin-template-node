@@ -10,7 +10,7 @@ const storage = new Storage();
 const BUCKET_NAME = "parcontario-scar-signatures";
 
 // just testing ci/cd - take 4
-//
+
 const kindName = 'Patient';
 
 // getPatients(firstname, lastname, dob) -> [Patient]
