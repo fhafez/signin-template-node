@@ -5,6 +5,7 @@ const datastore = new Datastore({
   projectId: 'scenic-setup-231121'
 });
 
+// testing travis function deployment
 const {Storage} = require('@google-cloud/storage');
 const storage = new Storage();
 
