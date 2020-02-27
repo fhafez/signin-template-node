@@ -5,8 +5,8 @@ ALL_DIRS=`ls -1`
 #CHANGED_FILES=`git diff HEAD^ HEAD --name-only`
 CHANGED_FILES=`git diff master origin/master --name-only`
 
-#echo $CHANGED_FILES
-#echo $ALL_DIRS
+echo $CHANGED_FILES
+echo $ALL_DIRS
 
 for f in ${CHANGED_FILES}; do
    fname=`echo $f | awk -F/ '{print $2}'`
