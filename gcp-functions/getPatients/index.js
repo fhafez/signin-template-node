@@ -128,6 +128,7 @@ exports.getPatients = (req, res) => {
             keys.push(patientKey.id);
             //returnVal.matches.push(patientKey.id);
             patient.id = patientKey.id;
+            patient.dob = patient.dob.slice(0, patient.dob.indexOf('T'));
             returnVal.push(patient);
             console.log(patient);
           });
