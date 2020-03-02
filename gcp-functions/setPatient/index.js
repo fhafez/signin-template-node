@@ -8,17 +8,16 @@ const kindName = 'Patient';
 
 exports.setPatient = (req, res) => {
     const unixTimestamp = new Date().getTime() * 1000;
-    let patientID = req.body.patientID || '';
-	let firstname = req.body.firstname || '';
-	let lastname = req.body.lastname || '';
+    let patientID = req.body.id || '';
+    let firstname = req.body.firstname || '';
+    let lastname = req.body.lastname || '';
     let dob = req.body.dob || '';
     let services = req.body.services || [];
     let overwrite = req.body.overwrite || false;
+    let services = req.body.services || [];
     let lastModifiedOn = unixTimestamp;
   
     var duplicatePatientFound = false;
-
-  	//res.status(200).send("awesome");
 
     if (patientID == '') {
       let query = datastore.createQuery('Patient'); //.select('__key__');
@@ -83,5 +82,24 @@ exports.setPatient = (req, res) => {
         }
       })
       .catch(err => { console.error('ERROR:', err); });
+    } else {
+
+      // update the patient with the values provided
+      const key = datastore.key(['Patient', datastore.int(patientID)]);
+      datastore.get(key, (err, entity) => {
+    
+      if (err) {
+        res.status(401).send("{error: " + err + "}");
+      }
+            
+      if (firstname != '') entity.firstname = firstname;
+      if (lastname != '') entity.lastname = lastname;
+      if (dob != '') entity.dob = dob;
+      if (services.length > 0) entity.services = services;
+
+      datastore.save({
+        key: key,
+        data: entity
+      }, (err) => {});
     }
 };

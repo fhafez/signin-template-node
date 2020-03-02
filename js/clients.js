@@ -1,7 +1,7 @@
 "use strict";
 
 var ClientModel = Backbone.Model.extend({
-    urlRoot: '../php/clientsJS.php/hello/',
+    urlRoot: 'https://us-central1-scenic-setup-231121.cloudfunctions.net/setPatient',
     defaults: {
         firstname: 'firstname',
         lastname: 'lastname',
