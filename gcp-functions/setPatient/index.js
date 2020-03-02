@@ -14,7 +14,6 @@ exports.setPatient = (req, res) => {
     let dob = req.body.dob || '';
     let services = req.body.services || [];
     let overwrite = req.body.overwrite || false;
-    let services = req.body.services || [];
     let lastModifiedOn = unixTimestamp;
   
     var duplicatePatientFound = false;
