@@ -128,7 +128,8 @@ exports.getPatients = (req, res) => {
             keys.push(patientKey.id);
             //returnVal.matches.push(patientKey.id);
             patient.id = patientKey.id;
-            patient.dob = patient.dob.getFullYear() + '-' + patient.dob.getMonth() + '-' + patient.dob.getDate();
+            if (typeof patient.dob === "object") 
+              patient.dob = patient.dob.getFullYear() + '-' + patient.dob.getMonth() + '-' + patient.dob.getDate();
             returnVal.push(patient);
             console.log(patient);
           });
