@@ -87,18 +87,19 @@ exports.setPatient = (req, res) => {
       const key = datastore.key(['Patient', datastore.int(patientID)]);
       datastore.get(key, (err, entity) => {
     
-      if (err) {
-        res.status(401).send("{error: " + err + "}");
-      }
-            
-      if (firstname != '') entity.firstname = firstname;
-      if (lastname != '') entity.lastname = lastname;
-      if (dob != '') entity.dob = dob;
-      if (services.length > 0) entity.services = services;
+        if (err) {
+          res.status(401).send("{error: " + err + "}");
+        }
+              
+        if (firstname != '') entity.firstname = firstname;
+        if (lastname != '') entity.lastname = lastname;
+        if (dob != '') entity.dob = dob;
+        if (services.length > 0) entity.services = services;
 
-      datastore.save({
-        key: key,
-        data: entity
-      }, (err) => {});
+        datastore.save({
+          key: key,
+          data: entity
+        }, (err) => {});
+      }
     }
 };
