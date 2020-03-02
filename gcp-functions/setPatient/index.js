@@ -104,6 +104,7 @@ exports.setPatient = (req, res) => {
             key: key,
             data: entity
           }, (err) => {});
+          res.send("{status: 'added updated successfully'}");
         });
       }
     });
