@@ -100,6 +100,6 @@ exports.setPatient = (req, res) => {
           key: key,
           data: entity
         }, (err) => {});
-      }
+      });
     }
 };
