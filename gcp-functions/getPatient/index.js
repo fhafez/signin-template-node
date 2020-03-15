@@ -24,11 +24,15 @@ exports.getPatient = (req, res) => {
       if (dob) {
         query.filter('dob','=',dob.trim());
       }
-      if (firstname) {
-        query.filter('firstname','=', firstname.trim());
-      }  
-      if (lastname) {
-        query.filter('lastname','=',lastname.trim());
+      if (firstname && lastname) {
+        query.filter('lowerName','=', firstname.trim().toLowerCase() + ' ' + lastname.trim().toLowerCase());
+      } else {
+        if (firstname) {
+          query.filter('firstname','=', firstname.trim());
+        }  
+        if (lastname) {
+          query.filter('lastname','=',lastname.trim());
+        }
       }
 
       datastore.runQuery(query).then(results => {

@@ -888,11 +888,11 @@ var ClientsAppView = Backbone.View.extend({
        //console.log('waiting to load');
         
         this.removeAll();
-        this.$('#clients-list').html(_.template($('#clients-header').html())({thispage: this.clientsCollection.page, totalpages: this.clientsCollection.total_pages, prevpageclasses: prevpageclasses, nextpageclasses: nextpageclasses, firstname_filter: this.firstname_filter, lastname_filter: this.lastname_filter})); // clean the clients table
+        this.$('#clients-list').html(_.template($('#clients-header').html())({thispage: this.clientsCollection.length, totalpages: this.clientsCollection.total_pages, prevpageclasses: prevpageclasses, nextpageclasses: nextpageclasses, firstname_filter: this.firstname_filter, lastname_filter: this.lastname_filter})); // clean the clients table
 
 
         this.clientsCollection.each(this.addClient, this);
-        this.$('#clients-list').append(_.template($('#clients-footer').html())({thispage: this.clientsCollection.page, totalpages: this.clientsCollection.total_pages, prevpageclasses: prevpageclasses, nextpageclasses: nextpageclasses})); // clean the clients table
+        this.$('#clients-list').append(_.template($('#clients-footer').html())({thispage: this.clientsCollection.length, totalpages: this.clientsCollection.total_pages, prevpageclasses: prevpageclasses, nextpageclasses: nextpageclasses})); // clean the clients table
 
         $('#page_counter').removeClass('pleasewait-showing');
         $('#loading_msg').removeClass('pleasewait-showing');
