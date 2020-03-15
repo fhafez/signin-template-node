@@ -22,6 +22,38 @@ exports.getAppointments = (req, res) => {
 
       console.log("PUT called!");
 
+    } else if (req.method == "DELETE") {
+
+      let appointmentID = req.url || '';
+
+      if (appointmentID) {
+        appointmentID = appointmentID == "/" ? "" : appointmentID.trim().substring(1,);
+      }
+      //let query = datastore.createQuery('Appointment');
+
+      if (appointmentID) {
+        let transaction = datastore.transaction();
+        datastore.key({path: ['Appointment', datastore.int(appointmentID)]});
+        try {
+          transaction.run((err) => {
+            res.status(404).send(err);
+            console.error('ERROR:', err);
+            return;
+          }
+
+          transaction.delete(appointmentKey);
+
+          transaction.commit((err) => {
+            if (!err) {
+              res.status(200).send("{}");
+              return;
+            }
+          });
+        }
+      } else {
+        res.status(404).send("{'error': 'must provide appointment ID'}");
+      }
+
     } else {
 
       console.log(new Date().toLocaleString("en-US", {timeZone: "America/Toronto"}));
