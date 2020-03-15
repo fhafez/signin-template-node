@@ -829,7 +829,7 @@ var ClientsAppView = Backbone.View.extend({
 
             this.removeAll();
 
-            this.clientsCollection.url = '../php/clientsJS.php/search/';
+            this.clientsCollection.url = 'https://us-central1-scenic-setup-231121.cloudfunctions.net/getPatients';
             this.clientsCollection.fetch({data: {firstname: this.firstname_filter, lastname: this.lastname_filter}, 
                                      reset: true,
                                      success: function() {
@@ -847,7 +847,7 @@ var ClientsAppView = Backbone.View.extend({
         this.lastname_filter = "";
 
         var self = this;
-        this.clientsCollection.url = '../php/clientsJS.php/';
+        this.clientsCollection.url = 'https://us-central1-scenic-setup-231121.cloudfunctions.net/getPatients';
         //router.navigate('clients/p' + this.page, {trigger: true});
         //this.addAll();
         this.clientsCollection.fetch({data: {page: this.page, per_page: 25}, 
