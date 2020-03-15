@@ -14,6 +14,7 @@ const kindName = 'Appointment';
 
 // getAppointments(fromDate, toDate, firstname, lastname, dob) -> [appointment]
 exports.getAppointments = (req, res) => {
+  res.headers.set('Access-Control-Allow-Methods', 'GET, POST','PUT','DELETE');
   return cors(req, res, () => {
 
     //process.env.TZ = "America/Toronto";
