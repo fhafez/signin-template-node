@@ -34,7 +34,7 @@ exports.getAppointments = (req, res) => {
       if (appointmentID) {
 
         let transaction = datastore.transaction();
-        appointmentKey = datastore.key({path: ['Appointment', datastore.int(appointmentID)]});
+        let appointmentKey = datastore.key({path: ['Appointment', datastore.int(appointmentID)]});
         transaction.run((err) => {
           if (err) {
             res.status(404).send(err);
