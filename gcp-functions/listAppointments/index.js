@@ -1,5 +1,5 @@
 'use strict';
-const cors = require('cors')({origin: true});
+const cors = require('cors')({"origin": true, "methods": "GET, POST, PUT, DELETE"});
 const moment = require('moment');
 const {Datastore} = require('@google-cloud/datastore');
 const datastore = new Datastore({
@@ -14,8 +14,6 @@ const kindName = 'Appointment';
 
 // getAppointments(fromDate, toDate, firstname, lastname, dob) -> [appointment]
 exports.getAppointments = (req, res) => {
-  res.headers.set('Access-Control-Allow-Origin', '*');
-  res.headers.set('Access-Control-Allow-Methods', 'GET, POST','PUT','DELETE');
   return cors(req, res, () => {
 
     //process.env.TZ = "America/Toronto";
