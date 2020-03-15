@@ -32,10 +32,11 @@ exports.getAppointments = (req, res) => {
       //let query = datastore.createQuery('Appointment');
 
       if (appointmentID) {
+
         let transaction = datastore.transaction();
         datastore.key({path: ['Appointment', datastore.int(appointmentID)]});
-        try {
-          transaction.run((err) => {
+        transaction.run((err) => {
+          if (err) {
             res.status(404).send(err);
             console.error('ERROR:', err);
             return;
@@ -49,7 +50,7 @@ exports.getAppointments = (req, res) => {
               return;
             }
           });
-        }
+        });
       } else {
         res.status(404).send("{'error': 'must provide appointment ID'}");
       }
