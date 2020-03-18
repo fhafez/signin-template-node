@@ -1,5 +1,7 @@
 # Use Dockerized infrastructure
-sudo: false
+# sudo: false
+
+os: linux
 
 # Use node_js environnement
 language: node_js
@@ -8,10 +10,10 @@ node_js:
   - "6"
 
 # Cache Gcloud SDK between commands
-cache:
-  yarn: true
-  directories:
-  - "$HOME/google-cloud-sdk/"
+#cache:
+#  yarn: true
+#  directories:
+#  - "$HOME/google-cloud-sdk/"
 
 env:
   global:
@@ -44,6 +46,6 @@ deploy:
 
 
       # - gcloud --quiet beta functions deploy mailer --source-url https://github.com/fhafez/signin-template-node/tree/master/gcp-functions --source-path / --trigger-http
-    skip_cleanup: true
+#    skip_cleanup: true
     on:
       branch: master
