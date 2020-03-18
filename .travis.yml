@@ -1,13 +1,11 @@
 # Use Dockerized infrastructure
 sudo: false
 
-os: linux
-
 # Use node_js environnement
 language: node_js
 node_js:
-  - stable
-#  - "6"
+#  - stable
+  - "6"
 
 # Cache Gcloud SDK between commands
 cache:
@@ -17,7 +15,7 @@ cache:
 
 env:
   global:
-
+  - CLOUDSDK_CORE_DISABLE_PROMPTS=1
 
 install:
   - npm install
