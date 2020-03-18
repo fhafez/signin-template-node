@@ -12,7 +12,7 @@ for f in ${CHANGED_FILES}; do
    # echo $f
    if [[ $ALL_DIRS == *"$fname"* ]]; then 
       echo $fname; 
-      gcloud --quiet beta functions deploy $fname --source https://source.developers.google.com/projects/scenic-setup-231121/repos/github_fhafez_signin-template-node/moveable-aliases/master/paths/gcp-functions/$fname --trigger-http 
+      gcloud --region="us-central1" --quiet beta functions deploy $fname --source https://source.developers.google.com/projects/scenic-setup-231121/repos/github_fhafez_signin-template-node/moveable-aliases/master/paths/gcp-functions/$fname --trigger-http 
    fi;
 done
 
