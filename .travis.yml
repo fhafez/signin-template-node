@@ -10,10 +10,10 @@ node_js:
   - "6"
 
 # Cache Gcloud SDK between commands
-#cache:
-#  yarn: true
-#  directories:
-#  - "$HOME/google-cloud-sdk/"
+cache:
+  yarn: true
+  directories:
+  - "$HOME/google-cloud-sdk/"
 
 env:
   global:
