@@ -17,7 +17,6 @@ exports.signout = (req, res) => {
     const unixTimeNow = m.unix();
   
     console.log(patientID);
-  	//res.status(200).send("awesome");
 
     // lookup the patient
     const key = datastore.key(['Patient', datastore.int(patientID)]);
