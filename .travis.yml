@@ -36,8 +36,6 @@ before_deploy:
 
   - gcloud config set project scenic-setup-231121
 
-  - npm install mocha --save-dev
-
 deploy:
   - provider: script
     script: bash build/build-only-changed-gcp-functions.sh
