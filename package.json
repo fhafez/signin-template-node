@@ -9,7 +9,7 @@
   "description": "Keep track of patients visiting a clinic.  Includes both a frontend and backend system.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 0"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -24,6 +24,9 @@
   "homepage": "https://github.com/fhafez/signin-template-node#readme",
   "devDependencies": {
     "chai": "^4.2.0",
-    "mocha": "^7.1.0"
+    "cors": "^2.8.5",
+    "mocha": "^7.1.0",
+    "sinon": "^9.0.1"
+
   }
 }
