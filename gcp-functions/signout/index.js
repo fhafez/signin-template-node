@@ -37,7 +37,6 @@ exports.signout = (req, res) => {
       }, (err) => {});
       
       // lookup the last appointment by this patient
-    
       let query = datastore.createQuery('Appointment');
       query.filter('patientID','=', datastore.int(patientID));
       query.order('signedInAt', { descending: true });
