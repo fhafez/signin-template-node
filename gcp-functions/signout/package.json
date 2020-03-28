@@ -9,7 +9,8 @@
     "moment": "^2.0"
   },
   "scripts": {
-    "test": "../node_modules/mocha/bin/mocha --inspect-brk test/*.test.js"
+   	"@comment test": { "test": "../node_modules/mocha/bin/mocha --inspect-brk test/*.test.js" },
+    "test": "../node_modules/mocha/bin/mocha test/*.test.js"
   },
   "devDependencies": {
     "@google-cloud/nodejs-repo-tools": "^3.3.0",
