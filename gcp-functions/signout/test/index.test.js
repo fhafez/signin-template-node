@@ -9,7 +9,7 @@ const uuid = require('uuid');
 
 const {signout} = require('..');
 
-describe('functions_http_method', () => {
+describe('functions_http_get_method', () => {
   it('http:signout: should handle GET with no patientID', (done) => {
 
     const name = uuid.v4();
@@ -100,6 +100,76 @@ describe('functions_http_method', () => {
   });
 
 });
+
+
+describe('functions_http_post_method', () => {
+
+  it('http:signout: should handle POST with a patientID but no signoutTime', (done) => {
+    const name = uuid.v4();
+    const req = {
+      method: 'POST',
+      query: {},
+      body: {
+        'patientID': '5675609028034560'
+      }
+    }
+
+    var send = sinon.stub();
+    var statusCode = sinon.stub();
+    statusCode.returns({send: send});
+
+    const res = {
+      status: statusCode,
+      send: send,
+      finished: false
+    };
+
+    signout(req, res, () => {
+      //-- debugger;
+      assert.ok(res.send.calledOnce);
+      assert.deepStrictEqual(res.send.firstCall.args, ['{success: true}']);
+      done();
+    });
+
+    //-- debugger;
+  });
+
+
+  it('http:signout: should handle POST with a patientID and a signoutTime', (done) => {
+    const unixTimestamp = new Date().getTime() / 1000;
+    const name = uuid.v4();
+    const req = {
+      method: 'POST',
+      query: {},
+      body: {
+        'patientID': '5675609028034560',
+        'signoutTime': unixTimestamp
+      }
+    }
+
+    var send = sinon.stub();
+    var statusCode = sinon.stub();
+    statusCode.returns({send: send});
+
+    const res = {
+      status: statusCode,
+      send: send,
+      finished: false
+    };
+
+    signout(req, res, () => {
+      //-- debugger;
+      assert.ok(res.send.calledOnce);
+      assert.deepStrictEqual(res.send.firstCall.args, ['{success: true}']);
+      done();
+    });
+
+    //-- debugger;
+  });
+
+});
+
+
 
 /*
   it('http:helloHttp: should handle PUT', () => {

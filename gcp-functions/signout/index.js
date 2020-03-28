@@ -79,7 +79,6 @@ module.exports.signout = (req, res, done) => {
             query.run((err, entities) => {
 
               if (err) {
-                console.log("error found " + err);
                 res.status(400).send(err);
                 done();
                 return;
