@@ -4,6 +4,15 @@
   "dependencies": {
     "@google-cloud/datastore": "^3.1.2",
     "@google-cloud/storage": "^2.5.0",
+    "puppeteer": "^1.6.2",
     "cors": "^2.8.1"
-  }
+  },
+  "scripts": {
+   	"test": "../node_modules/mocha/bin/mocha  test/*.test.js",
+    "@comment test": {"test": "../node_modules/mocha/bin/mocha --inspect-brk test/*.test.js"}
+  },
+  "devDependencies": {
+    "@google-cloud/nodejs-repo-tools": "^3.3.0",
+    "uuid": "^7.0.0"
+  }  
 }
