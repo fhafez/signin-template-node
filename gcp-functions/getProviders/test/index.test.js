@@ -84,7 +84,7 @@ describe('functions_http_get_method', () => {
 
 describe('functions_http_delete_method', () => {
 
-  it('http:getProviders: should fail DELETE with no ID', (done) => {
+  it('http:getProviders: should fail with DELETE', (done) => {
     const name = uuid.v4();
     const req = {
       method: 'DELETE',
@@ -110,7 +110,7 @@ describe('functions_http_delete_method', () => {
     getProviders(req, res, () => {
       debugger;
       assert.ok(res.send.calledOnce);
-      assert.deepStrictEqual(res.send.firstCall.args, ["{success: false, err: 'ID must be provided'}"]);
+      assert.deepStrictEqual(res.send.firstCall.args, ["{success: false, err: 'method not supported'}"]);
       done();
     });
 

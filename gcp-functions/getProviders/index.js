@@ -17,29 +17,7 @@ module.exports.getProviders = (req, res, done) => {
 
     return cors(req, res, () => {
 
-      if (req.method == "DELETE") {
-
-        if (req.path) {
-          let providerID = req.path.substr(1,);
-          const providerKey = datastore.key({path: ['Provider', datastore.int(providerID)]});
-          datastore.delete(providerKey);
-
-          res
-            .status(200)
-            .send("{success: true}");
-          done();
-          return;          
-        } else {
-          res
-            .status(403)
-            .send("{success: false, err: 'ID must be provided'}");
-          done();
-          return;
-        }
-
-        // console.log(req.path);
-
-      } else if (req.method == "GET") {
+     if (req.method == "GET") {
 
           // if provider description was provided in the querystring of a GET then return the provider record
           let desc = req.query.description || '';
