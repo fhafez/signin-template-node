@@ -7,13 +7,21 @@ const datastore = new Datastore({
 
 const kindName = 'Log';
 
-exports.saveLogEntry = (req, res) => {
+exports.saveLogEntry = (req, res, done) => {
   return cors(req, res, () => {
+
+    if (req.method != 'POST') {
+      res
+        .status(501)
+        .send("{'method not supported'}");
+      done();
+      return;
+    }
 
     const unixTimestamp = new Date().getTime() * 1000;
     let datetime = req.body.datetime || '';
-	let errorcode = req.body.errorcode || '';
-	let message = req.body.message || '';
+  	let errorcode = req.body.errorcode || '';
+  	let message = req.body.message || '';
     let severity = req.body.severity || '';
     let system = req.body.system || [];
 
@@ -33,10 +41,17 @@ exports.saveLogEntry = (req, res) => {
       data: dataToSave,
     })
       .catch(err => {
-      console.error('ERROR:', err);
-      res.status(400).send(err);
+      //console.error('ERROR:', err);
+      res
+        .status(400)
+        .send(err);
+      done();
       return;
     });
-    res.send("{status: 'added log successfully'}");
+    res
+      .status(200)
+      .send("{status: 'added log successfully'}");
+    done();
+    return;
   });
 };
