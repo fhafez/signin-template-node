@@ -26,6 +26,7 @@ exports.setAppointment = (req, res) => {
     let signature = req.body.sig || '';
     let signatureFilename = firstname + '_' + lastname + '_' + unixTimestamp + '.svg';
     let services = req.body.services || [];
+    let staff = req.body.staff || '';
 
     console.log(req.body);
     
@@ -73,6 +74,7 @@ exports.setAppointment = (req, res) => {
       signatureFilename: signatureFilename.trim(),
       signedInAt: datastore.int(signedInAt),
       signedOutAt: datastore.int(signedOutAt),
+      staff: staff
       //				time_create: datastore.int(Math.floor(new Date().getTime()/1000))
 	}
   
