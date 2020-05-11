@@ -48,24 +48,10 @@ exports.setAppointment = (req, res) => {
       signedInAt: datastore.int(signedInAt),
       signedOutAt: datastore.int(signedOutAt),
       //				time_create: datastore.int(Math.floor(new Date().getTime()/1000))
-	}
+    }
   
-    const key = appointmentID > 0 ? datastore.key({path: ['Appointment', datastore.int(appointmentID)]}) : datastore.key(kindName);
-  
-	res.status(200).send("awesome");
-  
-  	console.log('saving data ' + key.path);  
-    console.log("now going to datastore");
-	datastore
-		.save({
-			key: key,
-            data: dataToSave,
-		})
-		.catch(err => {
-		    console.error('ERROR:', err);
-		    res.status(200).send(err);
-		    return;
-		});
+    // TODO
+    // here is where we want to publish to PubSub
 
     console.log("finished the datastore");
 };
