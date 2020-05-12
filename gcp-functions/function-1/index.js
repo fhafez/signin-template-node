@@ -14,25 +14,6 @@ exports.setAppointment = async (req, res) => {
 	  let signature = req.body.sig || '';
     let signatureFilename = firstname + '_' + lastname + '_' + unixTimestamp;
 
-/*
-    // Upload a new file to Cloud Storage if we have events to save
-    if (signature.length) {
-//        const bucketName = config.EVENT_BUCKET;
-//        const unixTimestamp = new Date().getTime() * 1000;
-//        const filename = `${unixTimestamp}-${uuid.v4()}.json`;
-      const file = storage.bucket(BUCKET_NAME).file(signatureFilename.trim());
-      console.log(`Saving signature to ${signatureFilename} in bucket ${BUCKET_NAME}`);
-
-      file.save(signature).then(() => {
-        console.log(`JSON written to ${signatureFilename.trim()}`);
-      })
-      .catch(err => {
-	    console.error('ERROR:', err);
-		res.status(200).send(err);
-		return;
-	  });;
-    }
-*/
     var dataToSave = {
       patientID: patientID,
       firstname: firstname.trim(),
@@ -42,7 +23,6 @@ exports.setAppointment = async (req, res) => {
       signedInAt: signedInAt,
       signedOutAt: signedOutAt,
       signature: signature
-      //				time_create: datastore.int(Math.floor(new Date().getTime()/1000))
     }
   
     const dataBuffer = Buffer.from(JSON.stringify(dataToSave));
