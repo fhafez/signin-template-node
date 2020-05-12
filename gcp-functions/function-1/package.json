@@ -1,8 +1,7 @@
 {
   "name": "function-1",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "dependencies": {
-    "@google-cloud/datastore": "^3.1.2",
-    "@google-cloud/storage": "^2.5.0"
+    "@google-cloud/pubsub": "^1.7.3"
   }
 }
