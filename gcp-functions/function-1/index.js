@@ -1,26 +1,20 @@
-const {Datastore} = require('@google-cloud/datastore');
-const datastore = new Datastore({
-	projectId: 'scenic-setup-231121'
-});
+const {PubSub} = require('@google-cloud/pubsub');
 
-const {Storage} = require('@google-cloud/storage');
-const storage = new Storage();
-const BUCKET_NAME = "parcontario-scar-signatures";
-
-const kindName = 'Appointment';
+const pubSubClient = new PubSub();
 
 exports.setAppointment = (req, res) => {
     const unixTimestamp = new Date().getTime() * 1000;
     let appointmentID = req.body.apptID || 0;
     let patientID = req.body.patientID || '';
 	  let firstname = req.body.firstname || '';
-	let lastname = req.body.lastname || '';
+	  let lastname = req.body.lastname || '';
     let dob = req.body.dob || '';
     let signedInAt = req.body.signedInAt || '0';
     let signedOutAt = req.body.signedOutAt || 0;
-	let signature = req.body.signature || '';
+	  let signature = req.body.signature || '';
     let signatureFilename = firstname + '_' + lastname + '_' + unixTimestamp;
 
+/*
     // Upload a new file to Cloud Storage if we have events to save
     if (signature.length) {
 //        const bucketName = config.EVENT_BUCKET;
@@ -38,20 +32,20 @@ exports.setAppointment = (req, res) => {
 		return;
 	  });;
     }
-
+*/
     var dataToSave = {
       patientID: patientID,
       firstname: firstname.trim(),
       lastname: lastname.trim(),
       dob: dob.trim(),
-      signatureFilename: signatureFilename.trim(),
+      signatureData: signature,
       signedInAt: datastore.int(signedInAt),
       signedOutAt: datastore.int(signedOutAt),
       //				time_create: datastore.int(Math.floor(new Date().getTime()/1000))
     }
   
-    // TODO
-    // here is where we want to publish to PubSub
+    const dataBuffer = Buffer.from(JSON.stringify(dataToSave));
 
-    console.log("finished the datastore");
+    const messageId = await pubSubClient.topic("scar-appointment").publish(datastore);
+    console.log(`Message ${messageId} published`);
 };
