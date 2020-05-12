@@ -2,7 +2,7 @@ const {PubSub} = require('@google-cloud/pubsub');
 
 const pubSubClient = new PubSub();
 
-exports.setAppointment = (req, res) => {
+exports.setAppointment = async (req, res) => {
     const unixTimestamp = new Date().getTime() * 1000;
     let appointmentID = req.body.apptID || 0;
     let patientID = req.body.patientID || '';
@@ -46,6 +46,12 @@ exports.setAppointment = (req, res) => {
   
     const dataBuffer = Buffer.from(JSON.stringify(dataToSave));
 
-    const messageId = await pubSubClient.topic("scar-appointment").publish(datastore);
-    console.log(`Message ${messageId} published`);
+    try {
+      const messageId = await pubSubClient.topic("scar-appointment").publish(datastore);
+      console.log(`Message ${messageId} published`);
+      res.status(200).send(`Message ${messageId} published`);
+    } catch (err) {
+      res.status(500).send(err);
+      return Promise.reject(err);
+    }
 };
