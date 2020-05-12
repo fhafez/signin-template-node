@@ -11,7 +11,7 @@ exports.setAppointment = async (req, res) => {
     let dob = req.body.dob || '';
     let signedInAt = req.body.signedInAt || '0';
     let signedOutAt = req.body.signedOutAt || 0;
-	  let signature = req.body.signature || '';
+	  let signature = req.body.sig || '';
     let signatureFilename = firstname + '_' + lastname + '_' + unixTimestamp;
 
 /*
@@ -39,15 +39,16 @@ exports.setAppointment = async (req, res) => {
       lastname: lastname.trim(),
       dob: dob.trim(),
       signatureData: signature,
-      signedInAt: datastore.int(signedInAt),
-      signedOutAt: datastore.int(signedOutAt),
+      signedInAt: signedInAt,
+      signedOutAt: signedOutAt,
+      signature: signature
       //				time_create: datastore.int(Math.floor(new Date().getTime()/1000))
     }
   
     const dataBuffer = Buffer.from(JSON.stringify(dataToSave));
 
     try {
-      const messageId = await pubSubClient.topic("scar-appointment").publish(datastore);
+      const messageId = await pubSubClient.topic("scar-appointment").publish(dataBuffer);
       console.log(`Message ${messageId} published`);
       res.status(200).send(`Message ${messageId} published`);
     } catch (err) {
