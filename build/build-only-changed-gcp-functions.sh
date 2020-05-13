@@ -15,7 +15,7 @@ for f in ${CHANGED_FILES}; do
 
       # if this function is triggered by PubSub then it's name must end in .sub
       if [[ $fname == *".sub" ]]; then
-         topic=`echo $fname |  cut -d'_' -f 2 | rev | cut -c5- | rev`;
+         topic=`echo $fname |  cut -d'-' -f 2 | rev | cut -c5- | rev`;
          gcloud --quiet beta functions deploy $topic --source https://source.developers.google.com/projects/scenic-setup-231121/repos/github_fhafez_signin-template-node/moveable-aliases/master/paths/gcp-functions/$fname --trigger-topic $topic --runtime nodejs8 --memory=128MB
       else
          #gcloud --region="us-central1" --quiet beta functions deploy $fname --source https://source.developers.google.com/projects/scenic-setup-231121/repos/github_fhafez_signin-template-node/moveable-aliases/master/paths/gcp-functions/$fname --trigger-http 
