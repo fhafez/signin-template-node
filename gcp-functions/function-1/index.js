@@ -11,7 +11,8 @@ exports.setAppointment = async (req, res) => {
     let dob = req.body.dob || '';
     let signedInAt = req.body.signedInAt || '0';
     let signedOutAt = req.body.signedOutAt || 0;
-	  let signature = req.body.sig || '';
+    let signature = req.body.sig || '';
+    let services = req.body.services || [];
     let signatureFilename = firstname + '_' + lastname + '_' + unixTimestamp;
 
     var dataToSave = {
@@ -22,7 +23,8 @@ exports.setAppointment = async (req, res) => {
       signatureData: signature,
       signedInAt: signedInAt,
       signedOutAt: signedOutAt,
-      signature: signature
+      signature: signature,
+      services: services
     }
   
     const dataBuffer = Buffer.from(JSON.stringify(dataToSave));
