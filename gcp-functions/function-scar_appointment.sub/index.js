@@ -2,7 +2,7 @@ const {PubSub} = require('@google-cloud/pubsub');
 
 const pubSubClient = new PubSub();
 
-exports.printAppointment = async (data, context) => {
+exports.scar_appointment = async (data, context) => {
   
     const msg = data;
     const details = msg.data ? Buffer.from(msg.data, 'base64').toString() : '';
