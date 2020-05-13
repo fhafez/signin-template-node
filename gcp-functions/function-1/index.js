@@ -28,7 +28,7 @@ exports.setAppointment = async (req, res) => {
     const dataBuffer = Buffer.from(JSON.stringify(dataToSave));
 
     try {
-      const messageId = await pubSubClient.topic("scar-appointment").publish(dataBuffer);
+      const messageId = await pubSubClient.topic("scar_appointment").publish(dataBuffer);
       console.log(`Message ${messageId} published`);
       res.status(200).send(`Message ${messageId} published`);
     } catch (err) {
