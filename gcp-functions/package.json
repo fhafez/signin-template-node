@@ -20,6 +20,7 @@
     "sinon": "^9.0.1"
   },
   "dependencies": {
+    "@google-cloud/pubsub": "^1.7.3",
     "debug": "^4.1.1"
   }
 }
