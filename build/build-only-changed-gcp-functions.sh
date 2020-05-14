@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ALL_DIRS=`ls -1d gcp-functions | sed s/gcp-functions\\///g`
+ALL_DIRS=`ls -1d gcp-functions/* | sed s/gcp-functions\\\///g`
 CHANGED_FILES=`git diff HEAD^ HEAD --name-only | grep -v test\/`
 #CHANGED_FILES=`git diff master origin/master --name-only`
 COMPLETED=()
