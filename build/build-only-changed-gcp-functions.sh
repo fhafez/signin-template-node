@@ -1,8 +1,9 @@
 #!/bin/bash
 
-ALL_DIRS=`ls -1 gcp-functions`
+ALL_DIRS=`ls -1d gcp-functions | sed s/gcp-functions\\///g`
 CHANGED_FILES=`git diff HEAD^ HEAD --name-only | grep -v test\/`
 #CHANGED_FILES=`git diff master origin/master --name-only`
+COMPLETED=()
 
 echo $CHANGED_FILES
 echo $ALL_DIRS
@@ -10,8 +11,9 @@ echo $ALL_DIRS
 for f in ${CHANGED_FILES}; do
    fname=`echo $f | awk -F/ '{print $2}'`
    # if one of the GCP Functions changed then perform a deploy on that specific function
-   if [[ $ALL_DIRS == *"$fname"* ]]; then 
-      echo $fname; 
+   if [[ $ALL_DIRS == *"$fname"* && $COMPLETED != *"$fname"* ]]; then 
+      echo $fname;
+      COMPLETED+=($fname)
 
       # if this function is triggered by PubSub then it's name must end in .sub
       if [[ $fname == *".sub" ]]; then
