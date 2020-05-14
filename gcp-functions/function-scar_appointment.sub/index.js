@@ -28,7 +28,7 @@ exports.scar_appointment = async (data, context) => {
     let current_datetime = params.current_datetime;    
     let signedInAt = params.signedInAt || current_datetime;
     let signedOutAt = params.signedOutAt || 0;
-    let signature = params.sig || '';
+    let signature = params.signatureData || '';
     let signatureFilename = firstname + '_' + lastname + '_' + unixTimestamp + '.svg';
     let services = params.services || [];
     let staff = params.staff || '';
