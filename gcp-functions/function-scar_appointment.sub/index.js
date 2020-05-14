@@ -7,9 +7,9 @@ exports.scar_appointment = async (data, context) => {
     const msg = data;
     const details = msg.data ? Buffer.from(msg.data, 'base64').toString() : '';
 
-    let services = JSON.parse(details);
+    let services = JSON.parse(details).services;
 
     // just print the message received - that's all
     console.log(`Got a message! ${details}`);
-    console.log(`Services: ${services}`);
+    console.log(`Services: ${JSON.stringify(services)}`);
 };
