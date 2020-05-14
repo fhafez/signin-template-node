@@ -25,6 +25,7 @@ exports.setAppointment = async (req, res) => {
       signedOutAt: signedOutAt,
       services: services
     }
+
   
     const dataBuffer = Buffer.from(JSON.stringify(dataToSave));
 
