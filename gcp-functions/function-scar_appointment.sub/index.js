@@ -17,6 +17,9 @@ exports.scar_appointment = async (data, context) => {
 
     const msg = data;
     const details = msg.data ? Buffer.from(msg.data, 'base64').toString() : '';
+
+    console.log(details);
+    
     let params = JSON.parse(details);
 
     const unixTimestamp = new Date().getTime() * 1000;
