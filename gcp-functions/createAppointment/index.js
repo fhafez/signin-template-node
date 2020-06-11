@@ -2,12 +2,12 @@ const cors = require('cors')({origin: true});
 const atob = require('atob');
 const {Datastore} = require('@google-cloud/datastore');
 const datastore = new Datastore({
-	projectId: 'scenic-setup-231121'
+	projectId: 'signaturemountain-240415'
 });
 
 const {Storage} = require('@google-cloud/storage');
 const storage = new Storage();
-const BUCKET_NAME = "scarsigs.parcsignin.com";
+const BUCKET_NAME = "whitby-sigs.parcsignin.com";
 
 const kindName = 'Appointment';
 
