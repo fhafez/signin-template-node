@@ -7,7 +7,7 @@ const datastore = new Datastore({
 
 const {Storage} = require('@google-cloud/storage');
 const storage = new Storage();
-const BUCKET_NAME = "scarsigs.parcsignin.com";
+const BUCKET_NAME = "whitby-sigs.parcsignin.com";
 
 const kindName = 'Appointment';
 

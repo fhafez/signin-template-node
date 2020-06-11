@@ -16,7 +16,6 @@
 
       const project_url = "us-central1-signaturemountain-240415.cloudfunctions.net";
 
-
       function submitSigninForm(action) {
           if (document.loginform.firstname.value.length == 0 || document.loginform.lastname.value.length == 0) {
               document.getElementById("errors").innerHTML = 'Firstname and Lastname fields cannot be blank';
@@ -210,10 +209,11 @@
 
             $('#services-outer-container').hide();
             $(document).bind('touchmove', false);
+            /*
             $('#registercontainer')[0].hidden=true;
             $('#signatureparent')[0].hidden=true;
             $('#buttonscontainer')[0].hidden=true;
-
+            */
             setInterval(warmup,300000);            
         });
 
