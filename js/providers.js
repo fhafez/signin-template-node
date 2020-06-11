@@ -159,3 +159,4 @@ providersCollection.fetch({
 
 //console.log($('#date_from').val() + " " + $('#date_to').val());
 //console.log("Services.length: " + servicesCollection.length);
+

@@ -754,3 +754,4 @@ appointmentsCollection.fetch({
 */
 //console.log($('#date_from').val() + " " + $('#date_to').val());
 //console.log("appointmentsCollection.length: " + appointmentsCollection.length);
+

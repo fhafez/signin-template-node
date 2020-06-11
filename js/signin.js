@@ -687,3 +687,4 @@ var SigninAppView = Backbone.View.extend({
 
 var allPatients = new MatchingPatients({});
 var signinappview = new SigninAppView();
+
