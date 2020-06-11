@@ -27,7 +27,6 @@ exports.createAppointment_pub = async (req, res) => {
       services: services
     }
 
-  
     const dataBuffer = Buffer.from(JSON.stringify(dataToSave));
 
     try {
