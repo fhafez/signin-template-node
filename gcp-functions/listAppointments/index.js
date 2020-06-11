@@ -116,5 +116,6 @@ exports.getAppointments = (req, res) => {
     }
 
     //res.status(200).send('nothing');
+    
   });
 };
