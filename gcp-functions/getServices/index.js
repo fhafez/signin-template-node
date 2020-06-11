@@ -25,7 +25,6 @@ exports.getServices = (req, res) => {
 
       } else {
 
-
         if (req.body.description) {
 
           let desc = req.body.description || '';

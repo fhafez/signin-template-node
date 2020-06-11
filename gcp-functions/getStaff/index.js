@@ -14,7 +14,6 @@ const kindName = 'Staff';
 exports.getStaff = (req, res) => {
     return cors(req, res, () => {
 
-
       if (req.body.firstname) {
 
         let staffID = req.body.staffID || '';

@@ -13,7 +13,7 @@ const kindName = 'Provider';
 
 module.exports.getProviders = (req, res, done) => {
 
-  debugger;
+  //debugger;
 
     return cors(req, res, () => {
 
@@ -68,7 +68,7 @@ module.exports.getProviders = (req, res, done) => {
           done();
           return;
         }
-      debugger;
+      //debugger;
 
     });
 };
