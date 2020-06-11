@@ -44,7 +44,7 @@
             border-radius: 5px;
             background-color:white;
             color:#007ACC;
-            decor-color:#000;
+            /* decor-color:#000; */
             margin-left:auto; 
             margin-right:auto;
             width:100%;
@@ -231,6 +231,8 @@
     <script src="js/signin.js"></script>
     <script type="text/javascript">
 
+        const project_url = "us-central1-signaturemountain-240415.cloudfunctions.net";
+        
         function warmup() {
             let warmup_function = new XMLHttpRequest();
             warmup_function.open("GET","https://us-central1-signaturemountain-240415.cloudfunctions.net/getPatient?firstname=fadi&lastname=amer","","");
@@ -243,7 +245,7 @@
         warmup();    
         $(document).ready(function() {
             var $sigdiv = $("#signature").jSignature({lineWidth:1});
-            
+
             $('#services-outer-container').hide();
             $(document).bind('touchmove', false);
             $('#registercontainer')[0].hidden=true;

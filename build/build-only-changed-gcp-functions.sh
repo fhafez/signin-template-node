@@ -10,6 +10,13 @@ echo $ALL_DIRS
 
 for f in ${CHANGED_FILES}; do
    fname=`echo $f | awk -F/ '{print $2}'`
+
+   # if the file was .html or .js then update it in GCS
+   if [[ $f == *".js" || $f == *".html"]]; then
+      gsutil cp /home/travis/build/fhafez/signin-template-node/$f gs://index.parcsignin.com/whitby/
+   fi;
+   
+
    # if one of the GCP Functions changed then perform a deploy on that specific function
    if [[ $ALL_DIRS == *"$fname"* && $COMPLETED != *"$fname"* ]]; then 
       echo $fname;
