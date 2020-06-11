@@ -230,9 +230,30 @@
     <script src="libs/errors.js"></script>
     <script src="js/signin.js"></script>
     <script type="text/javascript">
+
+        function warmup() {
+            let warmup_function = new XMLHttpRequest();
+            warmup_function.open("GET","https://us-central1-signaturemountain-240415.cloudfunctions.net/getPatient?firstname=fadi&lastname=amer","","");
+            warmup_function.onload = function() {
+                console.log("warmed up");
+            }
+            warmup_function.send("");
+        }
+
+        warmup();    
         $(document).ready(function() {
             var $sigdiv = $("#signature").jSignature({lineWidth:1});
+            
+            $('#services-outer-container').hide();
+            $(document).bind('touchmove', false);
+            $('#registercontainer')[0].hidden=true;
+            $('#signatureparent')[0].hidden=true;
+            $('#buttonscontainer')[0].hidden=true;
+
+            setInterval(warmup,300000);            
         });
+
+
     </script>
 
 </body>
