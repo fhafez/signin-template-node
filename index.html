@@ -232,10 +232,10 @@
     <script type="text/javascript">
 
         const project_url = "us-central1-signaturemountain-240415.cloudfunctions.net";
-        
+
         function warmup() {
             let warmup_function = new XMLHttpRequest();
-            warmup_function.open("GET","https://us-central1-signaturemountain-240415.cloudfunctions.net/getPatient?firstname=fadi&lastname=amer","","");
+            warmup_function.open("GET","https://" + project_url + "/getPatient?firstname=fadi&lastname=amer","","");
             warmup_function.onload = function() {
                 console.log("warmed up");
             }
