@@ -2,6 +2,7 @@ const {PubSub} = require('@google-cloud/pubsub');
 
 const pubSubClient = new PubSub();
 
+// publish an appointment to pubsub
 exports.createAppointment_pub = async (req, res) => {
     const unixTimestamp = new Date().getTime() * 1000;
     let appointmentID = req.body.apptID || 0;
