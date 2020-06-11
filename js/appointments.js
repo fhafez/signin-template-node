@@ -8,7 +8,7 @@ function AppointmentsApp(el) {
 
     var AppointmentModel = Backbone.Model.extend({
         //urlRoot: "../php/appointmentsJS.php/",
-        urlRoot: "https://us-central1-scenic-setup-231121.cloudfunctions.net/listAppointments",
+        urlRoot: "https://" + project_url + "/listAppointments",
         defaults: {
             client: {},
             staff: {},
@@ -156,13 +156,13 @@ function AppointmentsApp(el) {
 
 
     var StaffCollection = Backbone.Collection.extend({
-        url: "https://us-central1-scenic-setup-231121.cloudfunctions.net/getStaff",
+        url: "https://" + project_url + "/getStaff",
     });
 
     var AppointmentsCollection = Backbone.Collection.extend({
         model: AppointmentModel,
         wait: true,
-        url: "https://us-central1-scenic-setup-231121.cloudfunctions.net/listAppointments",
+        url: "https://" + project_url + "/listAppointments",
         /*
         sync: function(method, model, options) {
             //console.log("appointments collection sync called! " + method);
@@ -298,7 +298,7 @@ function AppointmentsApp(el) {
 
             var PageableAppointmentsCollection = Backbone.PageableCollection.extend({
                 model: AppointmentModel,
-                url: "https://us-central1-scenic-setup-231121.cloudfunctions.net/listAppointments",
+                url: "https://" + project_url + "/listAppointments",
                 state: {
                     pageSize: 25
                 },

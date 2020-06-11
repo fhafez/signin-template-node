@@ -2,7 +2,7 @@
 
 
 var SigninModel = Backbone.Model.extend({
-    urlRoot: 'https://us-central1-scenic-setup-231121.cloudfunctions.net/createAppointment/',
+    urlRoot: 'https://' + project_url + '/createAppointment/',
     storeName: 'signin',
     defaults: {
         firstname: '',
@@ -51,7 +51,7 @@ var ServicesModel = Backbone.Model.extend({
 });
 
 var PatientModel = Backbone.Model.extend({
-    urlRoot: 'https://us-central1-scenic-setup-231121.cloudfunctions.net/getPatients/',
+    urlRoot: 'https://' + project_url + '/getPatients/',
     storeName: 'allPatients',    
     defaults: {
         //id: '',
@@ -139,7 +139,7 @@ var RegisterModel = Backbone.Model.extend({
 */
 
 var LogEntryModel = Backbone.Model.extend({
-   url: 'https://us-central1-scenic-setup-231121.cloudfunctions.net/saveLogEntry/',
+   url: 'https://' + project_url + '/saveLogEntry/',
    defaults: {
        system: '',
        severity: '',

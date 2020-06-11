@@ -1,7 +1,7 @@
 "use strict";
 
 var ClientModel = Backbone.Model.extend({
-    urlRoot: 'https://us-central1-scenic-setup-231121.cloudfunctions.net/setPatient',
+    urlRoot: 'https://' + project_url + '/setPatient',
     defaults: {
         firstname: 'firstname',
         lastname: 'lastname',
@@ -65,7 +65,7 @@ var AvailableServiceModel = Backbone.Model.extend({
 
 var ClientsCollection = Backbone.Collection.extend({
     model: ClientModel,
-    url: 'https://us-central1-scenic-setup-231121.cloudfunctions.net/getPatients',
+    url: 'https://' + project_url + '/getPatients',
     initialize: function(options) {
         if (options && options.url)
             this.url = options.url;
@@ -829,7 +829,7 @@ var ClientsAppView = Backbone.View.extend({
 
             this.removeAll();
 
-            this.clientsCollection.url = 'https://us-central1-scenic-setup-231121.cloudfunctions.net/getPatients';
+            this.clientsCollection.url = 'https://' + project_url + '/getPatients';
             this.clientsCollection.fetch({data: {firstname: this.firstname_filter, lastname: this.lastname_filter}, 
                                      reset: true,
                                      success: function() {
@@ -847,7 +847,7 @@ var ClientsAppView = Backbone.View.extend({
         this.lastname_filter = "";
 
         var self = this;
-        this.clientsCollection.url = 'https://us-central1-scenic-setup-231121.cloudfunctions.net/getPatients';
+        this.clientsCollection.url = 'https://' + project_url + '/getPatients';
         //router.navigate('clients/p' + this.page, {trigger: true});
         //this.addAll();
         this.clientsCollection.fetch({data: {page: this.page, per_page: 25}, 

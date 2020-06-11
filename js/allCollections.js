@@ -29,13 +29,13 @@ var ServicesCollection = Backbone.Collection.extend({
 var TodaysAppointmentsCollection = Backbone.Collection.extend({
     model: SigninModel,
     storeName: 'todaysAppts',
-    url: 'https://us-central1-scenic-setup-231121.cloudfunctions.net/listAppointments/',
+    url: 'https://' + project_url + '/listAppointments/',
 });
 
 var MatchingPatients = Backbone.Collection.extend({
     model: PatientModel,
     wait: true,
-    url: 'https://us-central1-scenic-setup-231121.cloudfunctions.net/getPatients/',
+    url: 'https://' + project_url + '/getPatients/',
     storeName: 'allPatients',
     initialize: function(models, options) {
         //console.log(options);
