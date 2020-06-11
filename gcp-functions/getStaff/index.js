@@ -5,10 +5,6 @@ const datastore = new Datastore({
 	projectId: 'signaturemountain-240415'
 });
 
-const {Storage} = require('@google-cloud/storage');
-const storage = new Storage();
-const BUCKET_NAME = "parcontario-scar-signatures";
-
 const kindName = 'Staff';
 
 exports.getStaff = (req, res) => {
