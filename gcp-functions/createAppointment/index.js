@@ -11,7 +11,7 @@ const BUCKET_NAME = "whitby-sigs.parcsignin.com";
 
 const kindName = 'Appointment';
 
-exports.setAppointment = (req, res) => {
+exports.createAppointment = (req, res) => {
   return cors(req, res, () => {
 
     const unixTimestamp = new Date().getTime() * 1000;
@@ -95,6 +95,6 @@ exports.setAppointment = (req, res) => {
 		    return;
 		});
 
-    console.log("finished the datastore");
+    //console.log("finished the datastore");
   });
 };
