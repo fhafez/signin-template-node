@@ -233,6 +233,7 @@
 
         const project_url = "us-central1-signaturemountain-240415.cloudfunctions.net";
 
+        // run a warmup for gcp functions
         function warmup() {
             let warmup_function = new XMLHttpRequest();
             warmup_function.open("GET","https://" + project_url + "/getPatient?firstname=fadi&lastname=amer","","");
