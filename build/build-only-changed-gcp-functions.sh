@@ -24,6 +24,8 @@ for f in ${CHANGED_FILES}; do
          #gcloud --region="us-central1" --quiet beta functions deploy $fname --source https://source.developers.google.com/projects/scenic-setup-231121/repos/github_fhafez_signin-template-node/moveable-aliases/master/paths/gcp-functions/$fname --trigger-http 
          gcloud --quiet beta functions deploy $fname --source https://source.developers.google.com/projects/signaturemountain-240415/repos/github_fhafez_signin-template-node/moveable-aliases/signaturemountain-240415/paths/gcp-functions/$fname --trigger-http --runtime nodejs10 --memory 128M 
       fi;
+      # allow public invocatino to the function
+      gcloud alpha functions add-iam-policy-binding $fname --member=allUsers --role=roles/cloudfunctions.invoker
    else
       # if the file was .html or .js then update it in GCS
       if [[ $f == *".js" || $f == *".html" ]]; then
