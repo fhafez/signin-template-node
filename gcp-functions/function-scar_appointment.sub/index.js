@@ -13,6 +13,7 @@ const kindName = 'Appointment';
 
 const pubSubClient = new PubSub();
 
+// triggered by pubsub to retrieve appointments and store them in datastore and GCS
 exports.scar_appointment = async (data, context) => {
 
     const msg = data;
