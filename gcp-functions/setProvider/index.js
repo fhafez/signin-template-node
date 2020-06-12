@@ -173,5 +173,3 @@ exports.setProvider = (req, res, done) => {
       }
     });
 };
-
-

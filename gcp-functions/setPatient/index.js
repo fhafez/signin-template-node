@@ -25,7 +25,6 @@ exports.setPatient = (req, res) => {
       if (patientID == '') {
         let query = datastore.createQuery('Patient'); //.select('__key__');
 
-        
         if (dob) {
           query.filter('dob','=',dob.trim());
         }

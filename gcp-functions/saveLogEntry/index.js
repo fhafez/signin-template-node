@@ -1,4 +1,5 @@
 'use strict';
+
 const cors = require('cors')({origin: true});
 const {Datastore} = require('@google-cloud/datastore');
 const datastore = new Datastore({

@@ -28,7 +28,6 @@ module.exports.signout = (req, res, done) => {
     const transaction = datastore.transaction();
     const patientKey = datastore.key({path: ['Patient', datastore.int(patientID)]});
 
-
       //-- debugger;
 
       transaction.run((err, transaction) => {
