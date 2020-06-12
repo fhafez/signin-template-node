@@ -594,7 +594,7 @@ function AppointmentsApp(el) {
                     }
                 });
                 */
-               
+
             } else {
                 this.$('#appointments-table').html('<tr><td bgcolor="white" border="0" align="center" style="border-radius: 5px; padding: 0 20px; margin: 20px">0 appointments matching the above filter</tr></td>'); // clean the appointments table
             }
@@ -651,7 +651,7 @@ function AppointmentsApp(el) {
         dayClicked: function() {
             $('#date_from').val(moment().format("YYYY-MM-DD"));
             $('#date_to').val(moment().add(1,'d').format("YYYY-MM-DD"));
-            //this.reloadAppointments();
+            this.reloadAppointments();
             $('#date_from').trigger('change');
         },
         monthClicked: function(e) {
@@ -659,14 +659,14 @@ function AppointmentsApp(el) {
 
             $('#date_from').val(moment().subtract(1,'M').format("YYYY-MM-DD"));
             $('#date_to').val(moment().add(1,'d').format("YYYY-MM-DD"));
-            //this.reloadAppointments();
+            this.reloadAppointments();
             $('#date_from').trigger('change');
         },
         weekClicked: function() {
             $('#date_from').val(moment().subtract(1,'w').format("YYYY-MM-DD"));
             $('#date_to').val(moment().add(1,'d').format("YYYY-MM-DD"));
             $('#date_from').trigger('change');
-            //this.reloadAppointments();
+            this.reloadAppointments();
         },
         apptLastPage: function() {
             this.appointmentsCollection.lastPage();

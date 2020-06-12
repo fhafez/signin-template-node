@@ -34,7 +34,7 @@
         <!--td><div><label><%= dob %></label></div></td-->
         <td><div align='center'><label><%= moment.unix(signedInAt).format("DD-MMM-YYYY hh:mmA") %></label></div></td>
         <td align='center' class='signout'><div class="view"><label><%= signedOutAt > 0 ? moment.unix(signedOutAt).format("DD-MMM-YYYY hh:mmA") : "click to sign out" %></label></div><label class="signout">Signout now? <a class="yes">Yes</a> <a class="no" href="#">No</a></label></td>
-        <td align='center'><img style="max-width:150px; max-height:60px; stroke: red" src="https://storage.googleapis.com/scarsigs.parcsignin.com/<%= signatureFilename %>" /></td>
+        <td align='center'><img style="max-width:150px; max-height:60px; stroke: red" src="https://storage.googleapis.com/whitby-sigs.parcsignin.com/<%= signatureFilename %>" /></td>
         <!--td align='center'>
             <svg xml:space="preserve" viewbox="0 0 500 200" width="90%" preserveAspectRatio="xMidYMid meet">
             </svg>
@@ -55,7 +55,7 @@
         <td align='center' class='destroycellhide' width='5%'><label class="destroy">Delete</label></td>
     </script>
     <script type="text/template" id='appointmentsapp-template'>
-        <div class='section-title'><h2>Appointments</h2></div>
+        <!--div class='section-title'><h2>Appointments</h2></div-->
         <div id='bufferspace' height='20px'>&nbsp;</div>
         <div align='center' class="filters">
             <!--div class="filter-right">
@@ -93,12 +93,14 @@
                     </label>
                 </div>
             </div>
-
-            <div class="filters-search-button">
-                <div id="search-btn" class='search-btn'>SEARCH</div>
-                <div id="clear-btn" class='search-btn'>CLEAR</div>
-            </div>
-
+        </div>
+        <div align='center' class="filters">
+            <!--div class="filters-search-button"-->
+            <div id="search-btn" class='search-btn'>SEARCH</div>
+        </div>
+        <div align='center' class="filters">
+            <div id="clear-btn" class='search-btn'>CLEAR</div>
+        </div>
 
             <!--div id='search-by-staff' class='filter-category'>
                 <div class="filter-right">
