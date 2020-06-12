@@ -58,35 +58,49 @@
         <div class='section-title'><h2>Appointments</h2></div>
         <div id='bufferspace' height='20px'>&nbsp;</div>
         <div align='center' class="filters">
-            <div class="filter-right">
+            <!--div class="filter-right">
                 <label class="filter-heading">Filters</label>
-            </div>
+            </div-->
             <!--div class='filter-right'>fill in any of the fields below and then click on one of 'day', 'week', 'month' or complete the date range</div-->
-            <div id='search-by-client' class='filter-category'>
-                <div class="filter-right">
-                    <label class="filter-heading">Search By Patient</label>
-                </div>
-                <label><input id="firstname_filter" type="text" placeholder='firstname' /></label>
-                <label><input id="lastname_filter" type="text" placeholder='lastname'/></label>
-                <br>date of birth
-                <div id="dob_filter" class="dobfield">
-                    <input id="dob_year" name='dob_year' type="tel" maxlength="4" placeholder="YYYY" value=""/>/<input id="dob_month" name='dob_month' type="tel" maxlength="2" placeholder="MM" value=""/>/<input id="dob_day" name='dob_day' type="tel" maxlength="2" placeholder="DD" value=""/>
-                </div>
-            </div>
 
             <div id='search-by-date' class='filter-category'>
                 <div class="filter-right">
-                    <label class="filter-heading">Search Between Dates</label>
+                    Search Between Dates
+                    <!--label class="filter-heading">Search Between Dates</label-->
                 </div>
-                <label for="date_from">from </label><input id="date_from" type="date" placeholder='YYYY-MM-DD' style='width:160px;'/>
-                <label for="date_to">to </label><input id="date_to" type="date" placeholder='YYYY-MM-DD' style='width:160px;'/>
+                <!--label for="date_from"></label--><input id="date_from" type="date" placeholder='YYYY-MM-DD' style='width:160px;'/>
+                <!--label for="date_to"></label--><input id="date_to" type="date" placeholder='YYYY-MM-DD' style='width:160px;'/>
                 <br>
                 <a class='btn' id='day'>today</a>
                 <a class='btn' id='week'>week</a>
                 <a class='btn' id='month'>month</a>
             </div>
 
-            <div id='search-by-staff' class='filter-category'>
+            <div id='search-by-client' class='filter-category'>
+                <div class="filter-right">
+                    Filter By Patient
+                    <!--label class="filter-heading">Search By Patient</label-->
+                </div>
+                <label><input id="firstname_filter" type="text" placeholder='Firstname' /></label>
+                <label><input id="lastname_filter" type="text" placeholder='Lastname'/></label>
+                <!--label class="all_petite_caps">date of birth</label!-->
+                <div id="dob_filter" class="dobfield">
+                    <label id="dobfield" class="hidden">
+                        <input id="dob_year" name='dob_year' type="tel" maxlength="4" placeholder="YYYY" value=""/>/<input id="dob_month" name='dob_month' type="tel" maxlength="2" placeholder="MM" value=""/>/<input id="dob_day" name='dob_day' type="tel" maxlength="2" placeholder="DD" value=""/>
+                    </label>
+                    <label id="doblabel">
+                        <div style="font-variant-caps: all-petite-caps;" onfocus="$('#doblabel').addClass('hidden'); $('#dobfield').removeClass('hidden');" onclick="$('#doblabel').addClass('hidden'); $('#dobfield').removeClass('hidden');">DATE OF BIRTH</div>
+                    </label>
+                </div>
+            </div>
+
+            <div class="filters-search-button">
+                <div id="search-btn" class='search-btn'>SEARCH</div>
+                <div id="clear-btn" class='search-btn'>CLEAR</div>
+            </div>
+
+
+            <!--div id='search-by-staff' class='filter-category'>
                 <div class="filter-right">
                     <label class="filter-heading">Search By Staff</label>
                 </div>
@@ -97,7 +111,7 @@
                     </option>
                 <% }); %>
                 </select>
-            </div>
+            </div-->
         </div>
         <div id='bufferspace' height='20px'>&nbsp;</div>
         <table id="appointments-table" border='1' cellspacing='1' cellpadding='5'>
