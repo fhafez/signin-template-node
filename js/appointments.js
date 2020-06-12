@@ -295,7 +295,9 @@ function AppointmentsApp(el) {
             this.displayedAppts = this.displayedAppts || [];
 
             this.appointmentsCollection = new AppointmentsCollection([], {date_from: $('#date_from').val(), date_to: $('#date_to').val()});
+            var self = this;
 
+/*
             var PageableAppointmentsCollection = Backbone.PageableCollection.extend({
                 model: AppointmentModel,
                 url: "https://" + project_url + "/listAppointments",
@@ -307,7 +309,6 @@ function AppointmentsApp(el) {
 
             this.pageableAppointments = new PageableAppointmentsCollection();
 
-            var self = this;
 
             this.columns = [{
                 name: "firstname",
@@ -357,14 +358,15 @@ function AppointmentsApp(el) {
                         return this;
                     }
                 }),
-                /*
+                
                 formatter: _.extend({}, Backgrid.CellFormatter.prototype, {
                     fromRaw: function (rawValue, model) {
                     return "<img style='max-width:150px; max-height:60px; stroke: red' src='https://storage.googleapis.com/scarsigs.parcsignin.com/https://storage.googleapis.com/scarsigs.parcsignin.com/" + rawValue + "' />";
                 }  
             })
-            */
+            
             }];
+*/
 
             this.staffCollection = new StaffCollection();
 
@@ -557,7 +559,8 @@ function AppointmentsApp(el) {
             this.$('#appointments-table').html($('#appointments-header').html()); // clean the appointments table
 
             if (c.length) {
-
+                c.each(this.addAppointment, this);
+/*
                 this.pageableGrid = new Backgrid.Grid({
                     columns: [{
                         name: "",
@@ -590,7 +593,8 @@ function AppointmentsApp(el) {
                         lastname: $('#lastname_filter').val()
                     }
                 });
-                //c.each(this.addAppointment, this);
+                */
+               
             } else {
                 this.$('#appointments-table').html('<tr><td bgcolor="white" border="0" align="center" style="border-radius: 5px; padding: 0 20px; margin: 20px">0 appointments matching the above filter</tr></td>'); // clean the appointments table
             }
