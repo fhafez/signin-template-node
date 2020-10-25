@@ -23,7 +23,6 @@ exports.setAppointment = async (req, res) => {
       signatureData: signature,
       signedInAt: signedInAt,
       signedOutAt: signedOutAt,
-      signature: signature,
       services: services
     }
   

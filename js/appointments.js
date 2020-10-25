@@ -294,77 +294,9 @@ function AppointmentsApp(el) {
 
             this.displayedAppts = this.displayedAppts || [];
 
-            this.appointmentsCollection = new AppointmentsCollection([], {date_from: $('#date_from').val(), date_to: $('#date_to').val()});
-
-            var PageableAppointmentsCollection = Backbone.PageableCollection.extend({
-                model: AppointmentModel,
-                url: "https://us-central1-scenic-setup-231121.cloudfunctions.net/listAppointments",
-                state: {
-                    pageSize: 25
-                },
-                mode: "client"
-            });
-
-            this.pageableAppointments = new PageableAppointmentsCollection();
+            this.appointmentsCollection = new AppointmentsCollection([], {date_from: $('#date_from').val(), date_to: $('#date_to').val()});            
 
             var self = this;
-
-            this.columns = [{
-                name: "firstname",
-                label: "Firstname",
-                cell: "string",
-                editable: false                
-            },{
-                name: "lastname",
-                label: "Lastname",
-                cell: "string",
-                editable: false              
-            },{
-                name: "signedInAt",
-                label: "Signed In",
-                editable: false,
-                cell: Backgrid.DatetimeCell.extend({
-                    template: _.template("<%= moment.unix(signedInAt).format('DD-MMM-YYYY hh:mmA') %>"),
-                    render: function () {
-                        this.$el.html(this.template(this.model.toJSON()));
-                        return this;
-                    }
-                })
-            },{
-                name: "signedOutAt",
-                label: "Signed Out",
-                editable: false,
-                cell: Backgrid.Cell.extend({
-                    template: _.template("<%= signedOutAt > 0 ? moment.unix(signedOutAt).format('DD-MMM-YYYY hh:mmA') : 'click to sign out' %>"),
-                    render: function () {
-                        this.$el.html(this.template(this.model.toJSON()));
-                        return this;
-                    }
-                })
-            },{
-                name: "staff",
-                label: "staff",
-                cell: "string",
-                editable: false
-            },{
-                name: "signatureFilename",
-                label: "Signature",
-                editable: false,
-                cell: Backgrid.Cell.extend({
-                    template: _.template("<img style='max-width:150px; max-height:60px; stroke: red' src='https://storage.googleapis.com/scarsigs.parcsignin.com/<%= signatureFilename %>' />"),
-                    render: function () {
-                        this.$el.html(this.template(this.model.toJSON()));
-                        return this;
-                    }
-                }),
-                /*
-                formatter: _.extend({}, Backgrid.CellFormatter.prototype, {
-                    fromRaw: function (rawValue, model) {
-                    return "<img style='max-width:150px; max-height:60px; stroke: red' src='https://storage.googleapis.com/scarsigs.parcsignin.com/https://storage.googleapis.com/scarsigs.parcsignin.com/" + rawValue + "' />";
-                }  
-            })
-            */
-            }];
 
             this.staffCollection = new StaffCollection();
 
@@ -399,21 +331,15 @@ function AppointmentsApp(el) {
         events: {
             
             //'click #reloadAppointments': 'reloadAppointments',
-            /*
             'blur #date_from': 'reloadAppointments',
             'blur #date_to': 'reloadAppointments',
-            */
             'keypress #date_from': 'updateOnEnter',
             'keypress #date_to': 'updateOnEnter',
             'keypress #firstname_filter': 'updateFilterOnEnter',
             'keypress #lastname_filter': 'updateFilterOnEnter',
-            /*
             'blur #firstname_filter': 'addAll',
             'blur #lastname_filter': 'addAll',
             'blur #dob_filter': 'addAll',
-            */
-            'click #search-btn': 'reloadAppointments',
-            'click #clear-btn': 'resetSearch',
             'change #staff': 'addAll',
             'click #day': 'dayClicked',
             'click #week': 'weekClicked',
@@ -424,19 +350,9 @@ function AppointmentsApp(el) {
             'click #firstname': 'sortAppointments',
             'click #lastname': 'sortAppointments',
             'click #signedin_at': 'sortAppointments',
-            'click #signedout_at': 'sortAppointments'
-            /*
+            'click #signedout_at': 'sortAppointments',
             'change #date_from': 'reloadAppointments',
             'change #date_to': 'reloadAppointments'
-            */
-        },
-        resetSearch: function() {
-            $('#dob_year').val('');
-            $('#dob_month').val('');
-            $('#dob_day').val('');
-            $('#firstname_filter').val('');
-            $('#lastname_filter').val('');
-            this.dayClicked();
         },
         addAppointment: function(appointmentModel) {
            //console.log('in addAppointment() .. appointmentModel says ' + JSON.stringify(appointmentModel.toJSON()));
@@ -557,42 +473,9 @@ function AppointmentsApp(el) {
             this.$('#appointments-table').html($('#appointments-header').html()); // clean the appointments table
 
             if (c.length) {
-
-                this.pageableGrid = new Backgrid.Grid({
-                    columns: [{
-                        name: "",
-                        cell: "select-row",
-                        headerCell: "select-all"                        
-                    }].concat(this.columns),
-                    collection: this.pageableAppointments,
-                    className: "appoinments-table"
-                });
-
-                this.$('#appointments-table').html(this.pageableGrid.render().el);
-
-                // Initialize the paginator
-                var paginator = new Backgrid.Extension.Paginator({
-                  collection: this.pageableAppointments
-                });
-
-                // Render the paginator
-                this.$('#appointments-table').prepend(paginator.render().el);
-                this.$('#appointments-table').append(paginator.render().el);
-
-                this.pageableAppointments.fetch({
-                    reset: true,
-                    data: { 
-                        fromDate: this.appointmentsCollection.date_from.unix(),
-                        toDate: this.appointmentsCollection.date_to.unix(),
-                        page: this.appointmentsCollection.page,
-                        page_size: this.appointmentsCollection.page_size,
-                        firstname: $('#firstname_filter').val(),
-                        lastname: $('#lastname_filter').val()
-                    }
-                });
-                //c.each(this.addAppointment, this);
+                c.each(this.addAppointment, this);
             } else {
-                this.$('#appointments-table').html('<tr><td bgcolor="white" border="0" align="center" style="border-radius: 5px; padding: 0 20px; margin: 20px">0 appointments matching the above filter</tr></td>'); // clean the appointments table
+                this.$('#appointments-table').html('<tr><td bgcolor="white" border="0" align="center">0 appointments matching the above filter</tr></td>'); // clean the appointments table
             }
         },
         reloadAppointments: function(e) {

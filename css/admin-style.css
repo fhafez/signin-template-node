@@ -11,22 +11,21 @@
       background: linear-gradiant(white, whitesmoke);
       background: -webkit-linear-gradient(white, whitesmoke);
       /* For Safari 5.1 to 6.0 */
-
       background: -o-linear-gradient(white, whitesmoke);
       /* For Opera 11.1 to 12.0 */
-
       background: -moz-linear-gradient(white, whitesmoke);
       /* For Firefox 3.6 to 15 */
-
       background: linear-gradient(white, whitesmoke);
       /* Standard syntax */
-
       color: #007ACC;
       text-align: left;
       padding: 0px;
       margin: 0px;
       font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-weight: 300;
+      font-size: 18px;
+      height: 100%;
+      /* font-variant: all-petite-caps; */
   }
   h1 {
       color: #e5e5ec;
@@ -71,6 +70,10 @@
       border-width: 1px;
       padding: 0px;
       width: 100%;
+  }
+  .all_petite_caps {
+      font-variant-caps: all-petite-caps;
+      display: block;
   }
   h3 {
       color: #007ACC;
@@ -130,12 +133,10 @@
       background: -o-linear-gradient(#606c88, #3f4c6b);
       background: -moz-linear-gradient(#606c88, #3f4c6b);
       background: linear-gradient(#606c88, #3f4c6b);
-
       color: #FFFFFF;
       border: 1px solid #27a9e1;
       /* border-color: #5991d9; */
       border-color: #808080;
-
       vertical-align: bottom;
       font-family: 'helvetica heue', arial, sans-serif;
       font-size: 18px;
@@ -157,20 +158,27 @@
   #appointments-table td {
       height: 80px;
   }
+
+  .hidden {
+      display: none;
+  }
+
   .filter-category {
       font-family: 'Helvetica Neue', Arial, sans-serif;
       font-weight: 300;
       text-align: center;
       letter-spacing: 0.34000;
       width: calc((100% - 258px) / 3);
-      display: inline-block;
-      height: 160px;
-      border: 3px dotted black;
-      border-radius: 5px;
-      padding: 20px;
-      margin: 20px;
-      background-color: white;
+      /* display: inline-block; */
+      height: 180px;
+      border: 1px solid #607D8B;
+      border-radius: 0px;
+      padding: 25px 0;
+      margin: 1px;
+      background-color: #FFE0B2;
       float: left;
+      /* display: block; */
+      width: 350px;
   }
   .filter-category button {
     font-size: 16px;
@@ -183,9 +191,10 @@
       font-weight: 300;
       border: 1px solid darkgray;
       padding: 10px;
-      width: 120px;
+      width: 180px;
       text-align: center;
-      margin: 5px;
+      margin: 2px;
+      border-radius:  5px;
    }   
   .filter-left {
       padding: 10px;
@@ -211,20 +220,30 @@
       text-align: center;
   }
   .filter-right {
-      padding-top: 10px;
-      padding-left: 0px;
-      padding-right: 0px;
+      /* padding-top: 10px; */
+      padding: 10px 0;
       font-family: 'helvetica neue', arial, sans-serif;
       text-align: center;
       font-weight: 300;
       font-size: 16px;
       letter-spacing: 0.34000;
       width: 100%;
-      display: inline-block;
-      align-self: center;
-      color: #55acee;
+      /* display: flex; */
+      /* align-self: center; */
+      /* color: #55acee; */
       position: relative;
       top: -20px;
+      /* display: inline-block; */
+      /* float: left; */
+
+      background-color: rgba(39, 169, 225, 1.0);
+      background: linear-gradiant(#606c88, #3f4c6b);
+      background: -webkit-linear-gradient(#606c88, #3f4c6b);
+      background: -o-linear-gradient(#606c88, #3f4c6b);
+      background: -moz-linear-gradient(#606c88, #3f4c6b);
+      background: linear-gradient(#606c88, #3f4c6b);
+      color: white;
+
   }
   .filter-right button {
       font-size: 16px;
@@ -239,7 +258,7 @@
       font-weight: 300;
       vertical-align: middle;
       border: 1px solid black;
-      padding: 0px;
+      padding: 0px;      
   }
   .footer {
       padding: 10px;
@@ -255,17 +274,20 @@
   }
   .filters {
       width: 100%;
-      height: 280px;
-      background-color: ivory;
-      border-style: solid none solid none;
+      /* height: 280px; */
+      background-color: transparent;
+      /* border-style: solid none solid none; */
       border-width: 1px;
       /* border-color: #007ACC; */
       /* border-color: #555555; */
-      border-color: darkgray;
-      border-radius: 0px;
+      /* border-color: darkgray; */
+      /* border-radius: 0px; */
       align-self: center;
       padding: 0px;
       margin: 0 auto;
+      text-align: center;
+      display: flex;
+      justify-content: center;
   }
   .filter-heading {
       padding: 5px 80px 5px 80px; 
@@ -281,6 +303,24 @@
 
       color: white;
   }
+  .filters-search-button {
+    display: flex;
+    justify-content: center;
+    width: 710px;
+    height: 40px;
+    max-width: 1200px;
+    background-color: transparent;
+    /* border-style: solid none solid none; */
+    /* border-width: 1px; */
+    /* border-color: #007ACC; */
+    /* border-color: #555555; */
+    /* border-color: darkgray; */
+    border: none;
+    border-radius: 0px;
+    align-self: center;
+    padding: 0px;
+    margin: auto;
+  }  
   #clients-table {
       position:inherit;
       height: 60%;
@@ -541,43 +581,51 @@
   }
   .wrapper {
       padding: 0;
+      display: flex;
+      position: fixed;
+      width: 700px;
+      right: 50%;
+      left: 50%;
+      justify-content: center;
+      text-align: center;
+      margin-left: -350px;
+      z-index: 10;      
   }
   .title {
-      width: inherit;
-      position: fixed;
-      top: 0px;
-      left: 0px;
-      right: 0px;
-      padding: 10px 0px 10px 0px;
-      margin: 0px;
-      font-size: 14px;
-      font-family: 'helvetica neue';
-      text-align: center;
-      border-bottom: 2px solid white;
-      /* background-color: rgba(255, 255, 255, 0.6); */
-      background-color: rgba(39, 169, 225, 1.0);
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    padding: 10px 0px 10px 0px;
+    margin: 5px;
+    font-size: 14px;
+    font-family: 'helvetica neue';
+    text-align: center;
+    border: none;
+    background: transparent;
+    display: inline-block;
+    border-radius: 50px;
 
-      background: linear-gradiant(#606c88, #3f4c6b);
-      background: -webkit-linear-gradient(#606c88, #3f4c6b);
-      /* For Safari 5.1 to 6.0 */
-      background: -o-linear-gradient(#606c88, #3f4c6b);
-      /* For Opera 11.1 to 12.0 */
-      background: -moz-linear-gradient(#606c88, #3f4c6b);
-      /* For Firefox 3.6 to 15 */
-      background: linear-gradient(#606c88, #3f4c6b);
-
+    /*
+    background-color: rgba(39, 169, 225, 1.0);
+    background: linear-gradiant(#606c88, #3f4c6b);
+    background: -webkit-linear-gradient(#606c88, #3f4c6b);
+    background: -o-linear-gradient(#606c88, #3f4c6b);
+    background: -moz-linear-gradient(#606c88, #3f4c6b);
+    background: linear-gradient(#606c88, #3f4c6b);
+    */
       /* 27a9e1 */
       z-index: 100;
   }
   .title-item {
       font-family: "Helvetica Neue", sans-serif;
       display: inline-block;
-      border: 1px transparent whitesmoke;
+      border: 1px solid #3f4c6b;
+      float: left;
       /* border-radius: 2px; */
       /* background-color: whitesmoke; */
       /* background-color: #27a9e1; */
       /* background-color: #3a7bd5; */
-      background: transparent;
+      background: #3f4c6b;
       padding: 10px;
       /* color: #007ACC; */
       color: white;
@@ -587,36 +635,68 @@
       -webkit-transition: .3s;
       -moz-transition: .3s;
       -o-transition: .3s;
-
   }
+
+  .title-item:first-child {
+    border-radius: 50px 0 0 50px;
+    padding-left: 20px;
+  }
+
+  .title-item:last-child {
+    border-radius: 0 50px 50px 0;
+    padding-right: 20px;
+  }
+
   .title-item-selected {
+    display: inline-block;
+    border: 1px solid #4C6680;
+    padding: 10px;          
+    float: left;
+    color: #3f4c6b;
+    transition: .3s;
+    -webkit-transition: .3s;
+    -moz-transition: .3s;
+    -o-transition: .3s;
+    font-weight: 400;
+    background: whitesmoke;
+    /*
       display: inline-block;
       border: 1px solid whitesmoke;
       border-radius: 2px;
-      /* background-color: #007ACC; */
-      /* background-color: white; */
-      /* background-color: whitesmoke; */
-
       padding: 10px;
       color: whitesmoke;
-      /* color: #27a9e1; */
-      /* color: #3a7bd5; */
       font-weight: 400;
-
       transition: .3s;
       -webkit-transition: .3s;
       -moz-transition: .3s;
       -o-transition: .3s;
-
+    */
   }
+
+  .title-item-selected:first-child {
+    border-radius: 50px 0 0 50px;
+    padding-left: 20px;
+  }
+
+  .title-item-selected:last-child {
+    border-radius: 0 50px 50px 0;
+    padding-right: 20px;
+  }
+
   .title-item:hover {
-      /* color:#007ACC; */
-      /* color: #3a7bd5; */
-      /* background-color: #ffffff; */
+          /* color:#007ACC; */
+          /* color: #3a7bd5; */
+          /* background-color: #ffffff; */
+          background: whitesmoke;
+          /* border-bottom: 2px solid #3f4c6b; */
+          font-style: underline; 
+          color: #4C6680;
+      /*
       background: transparent;
       border-bottom: 1px solid whitesmoke;
       border-radius: 0px;
       font-style: underline;
+      */
   }
   #appspace {
       position: relative;
@@ -656,10 +736,10 @@
   }
   .btn {
       cursor: pointer;
-      margin: 10px;
+      margin: 5px 0;
       border-radius: 5px;
       text-decoration: none;
-      padding: 10px;
+      padding: 15px;
       font-size: 16px;
       transition: .3s;
       -webkit-transition: .3s;
@@ -676,6 +756,32 @@
       border: 1px solid darkgray;
       color: #fff
   }
+
+  .search-btn {
+      cursor: pointer;
+      margin: 2px; 
+      width: 500px;
+      height: 40px;
+      line-height: 40px;
+      display: inline-block;
+      text-align: center;
+      vertical-align: middle;
+      float: left;
+      background: #F25E0D;
+      padding: 5px;
+      color: white;
+      font-size: 18px;
+      font-weight: 400;
+      font-size: 24px;
+      filter: drop-shadow(2px 2px 3px #1E77D2);
+  }
+
+  .search-btn:hover {
+      background-color: gold;
+      border: 1px solid darkgray;
+      color: crimson;
+  }
+  
   .addnewbtn {
       cursor: pointer;
       margin: 10px;
@@ -901,21 +1007,23 @@
     
 }
 
-.dobfield { 
-    display: inline-block; 
+.dobfield {
+    display: inline-block;
     padding: 8px;
-    background: #FFF; 
+    background: #FFF;
     border: 1px solid darkgrey;
-    border-radius: 0;
+    border-radius: 5px;
     color: #666;
     text-overflow: wrap;
     width: 248px;
-    margin: 0px;
+    margin: 2px;
 }
 
+/*
 .dobfield * { 
     display: inline-block;
 }
+*/
 
 .dobfield input { 
     width: 4em;
@@ -938,9 +1046,9 @@
 .blue-signature {
   stroke: mediumblue;
   fill: none;
-  stroke-width="2";
-  stroke-linecap="round";
-  stroke-linejoin="round"
+  stroke-width:"2";
+  stroke-linecap:"round";
+  stroke-linejoin:"round"
 }
 
   @media print {
