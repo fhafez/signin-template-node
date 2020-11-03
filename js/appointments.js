@@ -8,7 +8,7 @@ function AppointmentsApp(el) {
 
     var AppointmentModel = Backbone.Model.extend({
         //urlRoot: "../php/appointmentsJS.php/",
-        urlRoot: "https://us-central1-scenic-setup-231121.cloudfunctions.net/listAppointments",
+        urlRoot: "https://" + project_url + "/listAppointments",
         defaults: {
             client: {},
             staff: {},
@@ -156,13 +156,13 @@ function AppointmentsApp(el) {
 
 
     var StaffCollection = Backbone.Collection.extend({
-        url: "https://us-central1-scenic-setup-231121.cloudfunctions.net/getStaff",
+        url: "https://" + project_url + "/getStaff",
     });
 
     var AppointmentsCollection = Backbone.Collection.extend({
         model: AppointmentModel,
         wait: true,
-        url: "https://us-central1-scenic-setup-231121.cloudfunctions.net/listAppointments",
+        url: "https://" + project_url + "/listAppointments",
         /*
         sync: function(method, model, options) {
             //console.log("appointments collection sync called! " + method);
@@ -296,7 +296,6 @@ function AppointmentsApp(el) {
 
             this.appointmentsCollection = new AppointmentsCollection([], {date_from: $('#date_from').val(), date_to: $('#date_to').val()});            
 
-            var self = this;
 
             this.staffCollection = new StaffCollection();
 
@@ -530,7 +529,7 @@ function AppointmentsApp(el) {
         dayClicked: function() {
             $('#date_from').val(moment().format("YYYY-MM-DD"));
             $('#date_to').val(moment().add(1,'d').format("YYYY-MM-DD"));
-            //this.reloadAppointments();
+            this.reloadAppointments();
             $('#date_from').trigger('change');
         },
         monthClicked: function(e) {
@@ -538,14 +537,14 @@ function AppointmentsApp(el) {
 
             $('#date_from').val(moment().subtract(1,'M').format("YYYY-MM-DD"));
             $('#date_to').val(moment().add(1,'d').format("YYYY-MM-DD"));
-            //this.reloadAppointments();
+            this.reloadAppointments();
             $('#date_from').trigger('change');
         },
         weekClicked: function() {
             $('#date_from').val(moment().subtract(1,'w').format("YYYY-MM-DD"));
             $('#date_to').val(moment().add(1,'d').format("YYYY-MM-DD"));
             $('#date_from').trigger('change');
-            //this.reloadAppointments();
+            this.reloadAppointments();
         },
         apptLastPage: function() {
             this.appointmentsCollection.lastPage();
@@ -637,3 +636,4 @@ appointmentsCollection.fetch({
 */
 //console.log($('#date_from').val() + " " + $('#date_to').val());
 //console.log("appointmentsCollection.length: " + appointmentsCollection.length);
+

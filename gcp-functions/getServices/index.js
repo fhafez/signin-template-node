@@ -2,7 +2,7 @@
 const cors = require('cors')({origin: true});
 const {Datastore} = require('@google-cloud/datastore');
 const datastore = new Datastore({
-  projectId: 'scenic-setup-231121'
+	projectId: 'signaturemountain-240415'
 });
 
 const {Storage} = require('@google-cloud/storage');
@@ -24,7 +24,6 @@ exports.getServices = (req, res) => {
         res.status(200).send("{}");
 
       } else {
-
 
         if (req.body.description) {
 

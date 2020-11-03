@@ -2,18 +2,13 @@
 const cors = require('cors')({origin: true});
 const {Datastore} = require('@google-cloud/datastore');
 const datastore = new Datastore({
-  projectId: 'scenic-setup-231121'
+	projectId: 'signaturemountain-240415'
 });
-
-const {Storage} = require('@google-cloud/storage');
-const storage = new Storage();
-const BUCKET_NAME = "parcontario-scar-signatures";
 
 const kindName = 'Staff';
 
 exports.getStaff = (req, res) => {
     return cors(req, res, () => {
-
 
       if (req.body.firstname) {
 

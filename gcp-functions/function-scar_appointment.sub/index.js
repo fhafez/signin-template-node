@@ -2,17 +2,18 @@ const {PubSub} = require('@google-cloud/pubsub');
 const atob = require('atob');
 const {Datastore} = require('@google-cloud/datastore');
 const datastore = new Datastore({
-	projectId: 'scenic-setup-231121'
+	projectId: 'signaturemountain-240415'
 });
 
 const {Storage} = require('@google-cloud/storage');
 const storage = new Storage();
-const BUCKET_NAME = "scarsigs.parcsignin.com";
+const BUCKET_NAME = "whitby-sigs.parcsignin.com";
 
 const kindName = 'Appointment';
 
 const pubSubClient = new PubSub();
 
+// triggered by pubsub to retrieve appointments and store them in datastore and GCS
 exports.scar_appointment = async (data, context) => {
 
     const msg = data;

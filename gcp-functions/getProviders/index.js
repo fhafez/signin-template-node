@@ -2,7 +2,7 @@
 const cors = require('cors')({origin: true});
 const {Datastore} = require('@google-cloud/datastore');
 const datastore = new Datastore({
-  projectId: 'scenic-setup-231121'
+	projectId: 'signaturemountain-240415'
 });
 
 // testing travis function deployment - take 3
@@ -13,7 +13,7 @@ const kindName = 'Provider';
 
 module.exports.getProviders = (req, res, done) => {
 
-  debugger;
+  //debugger;
 
     return cors(req, res, () => {
 
@@ -68,7 +68,7 @@ module.exports.getProviders = (req, res, done) => {
           done();
           return;
         }
-      debugger;
+      //debugger;
 
     });
 };

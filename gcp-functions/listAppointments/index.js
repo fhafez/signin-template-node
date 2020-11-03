@@ -3,17 +3,17 @@ const cors = require('cors')({"origin": true, "methods": "GET, POST, PUT, DELETE
 const moment = require('moment');
 const {Datastore} = require('@google-cloud/datastore');
 const datastore = new Datastore({
-	projectId: 'scenic-setup-231121'
+	projectId: 'signaturemountain-240415'
 });
 
 const {Storage} = require('@google-cloud/storage');
 const storage = new Storage();
-const BUCKET_NAME = "parcontario-scar-signatures";
+const BUCKET_NAME = "whitby-sigs.parcsignin.com";
 
 const kindName = 'Appointment';
 
 // getAppointments(fromDate, toDate, firstname, lastname, dob) -> [appointment]
-exports.getAppointments = (req, res) => {
+exports.listAppointments = (req, res) => {
   return cors(req, res, () => {
 
     //process.env.TZ = "America/Toronto";
@@ -116,5 +116,6 @@ exports.getAppointments = (req, res) => {
     }
 
     //res.status(200).send('nothing');
+
   });
 };

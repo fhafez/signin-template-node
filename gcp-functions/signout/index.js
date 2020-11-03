@@ -3,7 +3,7 @@ const moment = require('moment');
 const debug = require('debug');
 const {Datastore} = require('@google-cloud/datastore');
 const datastore = new Datastore({
-	projectId: 'scenic-setup-231121'
+	projectId: 'signaturemountain-240415'
 });
 
 const kindName = 'Patient';
@@ -27,7 +27,6 @@ module.exports.signout = (req, res, done) => {
     // lookup the patient
     const transaction = datastore.transaction();
     const patientKey = datastore.key({path: ['Patient', datastore.int(patientID)]});
-
 
       //-- debugger;
 

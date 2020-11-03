@@ -2,7 +2,7 @@
 const cors = require('cors')({origin: true});
 const {Datastore} = require('@google-cloud/datastore');
 const datastore = new Datastore({
-	projectId: 'scenic-setup-231121'
+	projectId: 'signaturemountain-240415'
 });
 
 const kindName = 'Patient';
@@ -25,7 +25,6 @@ exports.setPatient = (req, res) => {
       if (patientID == '') {
         let query = datastore.createQuery('Patient'); //.select('__key__');
 
-        
         if (dob) {
           query.filter('dob','=',dob.trim());
         }

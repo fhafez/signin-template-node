@@ -760,7 +760,11 @@
   .search-btn {
       cursor: pointer;
       margin: 2px; 
+<<<<<<< HEAD
       width: 500px;
+=======
+      width: 700px;
+>>>>>>> e8d35038a6c04752ca48c38104953d2b5a555b8b
       height: 40px;
       line-height: 40px;
       display: inline-block;
@@ -1063,6 +1067,9 @@
       .btn {
           display: none;
       }
+      .search-btn {
+          display: none;
+      }
       h2,
       h3 {
           page-break-after: avoid;
@@ -1113,7 +1120,7 @@
       }
   }
 
-  @media screen and (max-width: 1024px) {
+@media screen and (max-width: 1024px) {
     .client-data {
       width: 20%;
       font-size: 1.2em;
@@ -1128,22 +1135,31 @@
     .text_input_percent_width {
       width: 80%;
     }
-      #clients-list .view {
-          display: inline-block;
-          font-size: 1.0em;
-          font-weight: 400;
-          font-family: 'helvetica neue';
-      }
+    body {
+        font-size: 14px;
+        font-weight: 400;
 
-      #clients-list .editing .view {
-          display: none;
-      }
-
-      .section-title {
-        display: none;
-      }
-
-      #bufferspace {
-        height: 2px;
-      }
     }
+    #appointments-table th {
+        font-size: 12px;
+        font-weight: 200;
+    }
+    #clients-list .view {
+        display: inline-block;
+        font-size: 1.0em;
+        font-weight: 400;
+        font-family: 'helvetica neue';
+    }
+
+    #clients-list .editing .view {
+        display: none;
+    }
+
+    .section-title {
+    display: none;
+    }
+
+    #bufferspace {
+    height: 2px;
+    }
+}

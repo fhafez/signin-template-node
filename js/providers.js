@@ -1,7 +1,7 @@
 "use strict";
 
 var ProviderModel = Backbone.Model.extend({
-    urlRoot: "https://us-central1-scenic-setup-231121.cloudfunctions.net/getProviders",
+    urlRoot: "https://" + project_url + "/getProviders",
     defaults: {
         description: '',
     },
@@ -15,7 +15,7 @@ var ProviderModel = Backbone.Model.extend({
 var ProvidersCollection = Backbone.Collection.extend({
     model: ProviderModel,
     wait: true,
-    url: "https://us-central1-scenic-setup-231121.cloudfunctions.net/getProviders",
+    url: "https://" + project_url + "/getProviders",
     initialize: function(models, options) {
     },
     syncComplete: function() {
@@ -159,3 +159,4 @@ providersCollection.fetch({
 
 //console.log($('#date_from').val() + " " + $('#date_to').val());
 //console.log("Services.length: " + servicesCollection.length);
+

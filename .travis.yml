@@ -31,10 +31,11 @@ before_deploy:
 
   # use the decrypted service account credentials to authenticate the command line tool
   # get the encrypted variable names from travis cli: https://docs.travis-ci.com/user/encrypting-files/
-  - openssl aes-256-cbc -K $encrypted_5b8321e29fe6_key -iv $encrypted_5b8321e29fe6_iv -in scenic-setup-231121-04700bd179e4.json.enc -out scenic-setup-231121-04700bd179e4.json -d
-  - gcloud auth activate-service-account --key-file scenic-setup-231121-04700bd179e4.json
 
-  - gcloud config set project scenic-setup-231121
+  - openssl aes-256-cbc -K $encrypted_4db73518c78d_key -iv $encrypted_4db73518c78d_iv -in signaturemountain-240415-248c9588c95f.json.enc -out signaturemountain-240415-248c9588c95f.json -d
+  - gcloud auth activate-service-account --key-file signaturemountain-240415-248c9588c95f.json
+
+  - gcloud config set project signaturemountain-240415
 
 deploy:
   - provider: script
@@ -46,4 +47,4 @@ deploy:
       # - gcloud --quiet beta functions deploy mailer --source-url https://github.com/fhafez/signin-template-node/tree/master/gcp-functions --source-path / --trigger-http
     skip_cleanup: true
     on:
-      branch: master
+      branch: signaturemountain-240415
