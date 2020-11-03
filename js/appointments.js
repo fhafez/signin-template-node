@@ -292,6 +292,8 @@ function AppointmentsApp(el) {
 
            //console.log(this);
 
+            var self = this;
+
             this.displayedAppts = this.displayedAppts || [];
 
             this.appointmentsCollection = new AppointmentsCollection([], {date_from: $('#date_from').val(), date_to: $('#date_to').val()});            
