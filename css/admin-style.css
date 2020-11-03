@@ -760,11 +760,7 @@
   .search-btn {
       cursor: pointer;
       margin: 2px; 
-<<<<<<< HEAD
-      width: 500px;
-=======
       width: 700px;
->>>>>>> e8d35038a6c04752ca48c38104953d2b5a555b8b
       height: 40px;
       line-height: 40px;
       display: inline-block;
