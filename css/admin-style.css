@@ -289,6 +289,11 @@
       display: flex;
       justify-content: center;
   }
+  .filter-container {
+    width: 100%; 
+    margin: 0 auto; 
+    position: relative
+  }
   .filter-heading {
       padding: 5px 80px 5px 80px; 
       border: 1px solid darkgray; 
