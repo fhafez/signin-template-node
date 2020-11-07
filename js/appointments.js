@@ -378,7 +378,9 @@ function AppointmentsApp(el) {
           //console.log(this);
             
             this.removeAppts();
-            this.$('#appointments-table').html($('#appointments-header').html()); // clean the appointments table
+            let header = _.template($('#appointments-header').html());
+            //this.$('#appointments-table').html($('#appointments-header').html()); // clean the appointments table
+            this.$('#appointments-table').html(header.apply(this));
            //console.log("appointmentsCollection has " + appointmentsCollection.length);
 
             var dob_filter = '';
@@ -471,7 +473,9 @@ function AppointmentsApp(el) {
         renderAppointments: function(c, response) {
             
            //console.log(c);
-            this.$('#appointments-table').html($('#appointments-header').html()); // clean the appointments table
+            //this.$('#appointments-table').html($('#appointments-header').html()); // clean the appointments table
+            let header = _.template($('#appointments-header').html());
+            this.$('#appointments-table').html(header.apply(this));
 
             if (c.length) {
                 c.each(this.addAppointment, this);

@@ -128,7 +128,16 @@
         <th width='15%' id='signedin_at' class='sortablecolumn'>Signed In</th>
         <th width='15%' id='signedout_at' class='sortablecolumn'>Signed Out</th>
         <th width='15%'>Signature</th>
-        <th width='10%' id='staff' class='sortablecolumn'>Practitioner</th>
+        <!--th width='10%' id='staff' class='sortablecolumn'>Practitioner</th-->
+        <th width='10%' id='staff'>
+            <select id='staff' class='dropdown'>
+            <%_.forEach(this.staffCollection.toArray(), function(s,i) { %>
+                <option value=<%=s.get('id') %>>
+                    <%= s.get('firstname') %>
+                </option>
+            <% }); %>
+            </select>
+        </th>
         <th width='3%'>MVA</th>
         <th width='5%' class='' style='background: transparent; border: none;'></th>        
     </tr>
