@@ -67,6 +67,7 @@ exports.listAppointments = (req, res) => {
       let firstname = req.query.firstname || req.body.firstname || '';
       let lastname = req.query.lastname || req.body.lastname || '';
       let dob = req.query.dob || req.body.dob || '';
+      let staff = req.query.staff || req.body.staff || '';
 
       fromDate = datastore.int(fromDate);
       toDate = datastore.int(toDate);
@@ -84,7 +85,10 @@ exports.listAppointments = (req, res) => {
         query.filter('firstname','=', firstname.trim());
       }  
       if (lastname) {
-        query.filter('lastname','=',lastname.trim());
+        query.filter('lastname','=', lastname.trim());
+      }
+      if (staff) {
+        query.filter('staff','=', staff.trim());
       }
     
       query.filter('signedInAt','>', fromDate)
