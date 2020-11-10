@@ -22,6 +22,26 @@ exports.listAppointments = (req, res) => {
 
       console.log("PUT called!");
 
+      var staffName = "";
+      let staffID = req.query.staff || req.body.staff || '';
+
+      // get the staff name
+      let transaction = datastore.transaction();
+      let staffKey = datastore.key({path: ['Staff', datastore.int(staffID)]});
+      transaction.run((err, transaction) => {
+        transaction.get(staffKey, (err, entity) => {
+          if (err) {
+            res.status(404).send(err);
+            console.error('ERROR:', err);
+            return;
+          } else {
+            staffName = entity.firstname + " " + entity.lastname;
+          }
+        })
+      });
+      
+      console.log("Attempting to change staff to " + staffName + "!");
+
     } else if (req.method == "DELETE") {
 
       let appointmentID = req.url || '';
