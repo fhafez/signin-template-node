@@ -342,6 +342,7 @@ function AppointmentsApp(el) {
             'blur #lastname_filter': 'addAll',
             'blur #dob_filter': 'addAll',
             'change #staff': 'addAll',
+            'change #staff-selector': 'addAll',
             'click #day': 'dayClicked',
             'click #week': 'weekClicked',
             'click #month': 'monthClicked',
@@ -377,12 +378,6 @@ function AppointmentsApp(el) {
           //console.log('addall() called from ');
           //console.log(this);
             
-            this.removeAppts();
-            let header = _.template($('#appointments-header').html());
-            //this.$('#appointments-table').html($('#appointments-header').html()); // clean the appointments table
-            this.$('#appointments-table').html(header.apply(this));
-           //console.log("appointmentsCollection has " + appointmentsCollection.length);
-
             var dob_filter = '';
             var staff_id_filter = '';
  
@@ -392,9 +387,17 @@ function AppointmentsApp(el) {
             }
 
             // a staff member was selected
-            if ($('#staff').val()) {
-                staff_id_filter = $('#staff').val(); 
+            if ($('#staff-selector option:selected').text().trim()) {
+                staff_id_filter = $('#staff-selector option:selected').text().trim(); 
             }
+
+            this.removeAppts();
+
+            let header = _.template($('#appointments-header').html());
+            //this.$('#appointments-table').html($('#appointments-header').html()); // clean the appointments table
+            this.$('#appointments-table').html(header.apply(this));
+            //console.log("appointmentsCollection has " + appointmentsCollection.length);
+
             
             // If any of the filter fields are filled then apply the filter
             if ($('#firstname_filter').val() || $('#lastname_filter').val() || dob_filter || staff_id_filter || $('#date_to').val() || $('#date_from').val()) {

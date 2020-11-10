@@ -129,8 +129,8 @@
         <th width='15%' id='signedout_at' class='sortablecolumn'>Signed Out</th>
         <th width='15%'>Signature</th>
         <!--th width='10%' id='staff' class='sortablecolumn'>Practitioner</th-->
-        <th width='10%' id='staff'>
-            <select id='staff' class='dropdown'>
+        <th width='10%' id='staff-col'>
+            <select id='staff-selector' class='dropdown'>
             <%_.forEach(this.staffCollection.toArray(), function(s,i) { %>
                 <option value=<%=s.get('id') %>>
                     <%= s.get('firstname') %>
