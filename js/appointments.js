@@ -423,7 +423,7 @@ function AppointmentsApp(el) {
                         firstname: firstname_filter,
                         lastname: lastname_filter,
                         dob: dob_filter,
-                        staff_id: staff_id_filter
+                        staff: staff_id_filter
                     });
 
                     this.appointmentsCollection.fetch({
@@ -436,7 +436,7 @@ function AppointmentsApp(el) {
                             firstname: firstname_filter,
                             lastname: lastname_filter,
                             dob: dob_filter,
-                            staff_id: staff_id_filter
+                            staff: staff_id_filter
                         },
                         success: this.renderAppointments
                         
@@ -518,7 +518,7 @@ function AppointmentsApp(el) {
                     firstname: $('#firstname_filter').val(),
                     lastname: $('#lastname_filter').val(),
                     dob: dob_filter,
-                    staff_id: staff_id_filter
+                    staff: staff_id_filter
                 },
                 success: this.renderAppointments
             });
