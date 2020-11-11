@@ -36,11 +36,10 @@ exports.listAppointments = (req, res) => {
             return;
           } else {
             staffName = entity.firstname + " " + entity.lastname;
+            console.log("Attempting to change staff to " + staffName + "!");
           }
         })
       });
-      
-      console.log("Attempting to change staff to " + staffName + "!");
 
     } else if (req.method == "DELETE") {
 
