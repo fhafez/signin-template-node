@@ -45,6 +45,7 @@ exports.listAppointments = (req, res) => {
 
       let appointmentID = req.url || '';
 
+      
       if (appointmentID) {
         appointmentID = appointmentID == "/" ? "" : appointmentID.trim().substring(1,);
       }
