@@ -24,7 +24,7 @@ exports.listAppointments = (req, res) => {
 
       var staffName = "";
       let staff = req.query.staff || req.body.staff || '';
-      let staffID = staff.id;
+      let staffID = staff.staff_id;
 
       // get the staff name
       let transaction = datastore.transaction();
