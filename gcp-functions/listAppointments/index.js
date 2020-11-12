@@ -23,7 +23,8 @@ exports.listAppointments = (req, res) => {
       console.log("PUT called!");
 
       var staffName = "";
-      let staffID = req.query.staff || req.body.staff || '';
+      let staff = req.query.staff || req.body.staff || '';
+      let staffID = staff.id;
 
       // get the staff name
       let transaction = datastore.transaction();
@@ -45,7 +46,7 @@ exports.listAppointments = (req, res) => {
 
       let appointmentID = req.url || '';
 
-      
+
       if (appointmentID) {
         appointmentID = appointmentID == "/" ? "" : appointmentID.trim().substring(1,);
       }
