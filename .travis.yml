@@ -11,7 +11,7 @@ node_js:
 cache:
   yarn: true
   directories:
-  #- "$HOME/google-cloud-sdk/"
+  - "$HOME/google-cloud-sdk/"
 
 env:
   global:
